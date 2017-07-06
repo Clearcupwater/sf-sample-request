@@ -44,13 +44,6 @@ public class SampleRequestItemCustomController {
                 
             }
             
-            //check  when item is in approval stage
-            if (sampleRequestItem.Stage__c == 'Approved/Sent'){
-            	this.renderNeedsAdditionalInformationButton = true;
-            	this.renderMarkAsInProgressButton = true;
-            	this.renderMarkAsCompleteButton = true;
-            }
-            
              
             for(Sample_Request_Item_Approval__c approver: currentApprovals){
                 //check Pending
