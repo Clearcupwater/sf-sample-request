@@ -4,10 +4,8 @@ public class SampleRequestItemCustomController {
     public boolean renderApprovalButton {get; set;}
     public boolean renderRejectButton {get; set;}
     public boolean renderResubmitButton {get; set;}
-    public boolean renderMarkAsInProgressButton {get; set;}
-    public boolean renderNeedsAdditionalInformationButton {get; set;}
-    public boolean renderMarkAsCompleteButton {get; set;} 
 	public boolean printerFriendly {get; set;}
+	
 	public Attachment attachment { 
 		get {
 		if (attachment == null){
@@ -19,7 +17,7 @@ public class SampleRequestItemCustomController {
 	}
 	
 	
-    public SampleRequestItemCustomController(ApexPages.StandardController stdController){
+    public void SampleRequestItemCustomController(ApexPages.StandardController stdController){
         //field must be on the VFP page for it to work.
 		this.controller = stdController;
         this.sampleRequestItem = (Sample_Request_Item__c) stdController.getRecord();
@@ -47,21 +45,11 @@ public class SampleRequestItemCustomController {
             }
             
             //check  when item is in approval stage
-            if (sampleRequestItem.Stage__c == 'Approved'){
+            if (sampleRequestItem.Stage__c == 'Approved/Sent'){
             	this.renderNeedsAdditionalInformationButton = true;
             	this.renderMarkAsInProgressButton = true;
             	this.renderMarkAsCompleteButton = true;
             }
-            
-            if (sampleRequestItem.Stage__c == 'Work in Progress'){
-            	this.renderNeedsAdditionalInformationButton = true;
-            	this.renderMarkAsCompleteButton = true;
-            }
-            
-            
-            
-
-            
             
              
             for(Sample_Request_Item_Approval__c approver: currentApprovals){
@@ -102,15 +90,7 @@ public class SampleRequestItemCustomController {
         } else {
         	this.printerFriendly = false;
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
     }
     
     public void setDefaults(){
@@ -230,79 +210,8 @@ public class SampleRequestItemCustomController {
 		return p;
     	}
     
-    public PageReference markAsInProgress(){
-   		//email that the project has been set to Work in Progress
-        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-        List <Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
-        List <String> toEmail = new List<String>();
-        User userInfo = [Select Id, Email, FirstName, LastName From User Where Id=:sampleRequestItem.Owner__c];
-        toEmail.add(userInfo.Email);
-      	mail.setToAddresses(toEmail);
-        mail.setReplyTo('Do_Not_Reply@bentleymills.com');
-        mail.setSenderDisplayName('Bentley Custom Samples Tracking - Do Not Reply');
-        mail.setSubject('The following sample has been moved to working progress ' +SampleRequestItem.Id + ' This is most likely due to it will take some time to complete this project. Will notify you of the change in status');
-       	String link = URL.getSalesforceBaseUrl().toExternalForm()+'/'+ SampleRequestItem.Id;
-       	mail.setHtmlBody('Please visit the following link to see the Sample Request Details ' + link);
-        mails.add(mail);
-        Messaging.sendEmail(mails);
-
-		system.debug('complete mark as in progress');
+    
         
-		Sample_Request_Item__c SRI = new Sample_Request_Item__c(id = sampleRequestItem.Id, Stage__c = 'Work in Progress' );
-        update SRI;
-		system.debug(sampleRequestItem.Stage__c);
-		        
-        PageReference p = new PageReference (link);
-        p.setRedirect(true);
-        return p; 
-    }
-    
-    public PageReference markAsComplete(){
-    	system.debug(sampleRequestItem.Stage__c);
-        PageReference p = Page.SampleRequestItemCommentPageEdit;
-        p.setRedirect(true);
-        p.getParameters().put('sriId',sampleRequestItem.id);
-        p.getParameters().put('cs','4');
-		return p;
-    }
-    
-        public PageReference needsAdditionalInformation(){
-		system.debug(sampleRequestItem.Stage__c);
-        PageReference p = Page.SampleRequestItemCommentPageEdit;
-        p.setRedirect(true);
-        p.getParameters().put('sriId',sampleRequestItem.id);
-        p.getParameters().put('cs','1');
-        return p; 
-    	
-    }
-        public PageReference providesAdditionalInformation(){
-   		//email that the project has been set to Work in Progress
-        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-        List <Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
-        List <String> toEmail = new List<String>();
-        User userInfo = [Select Id, Email, FirstName, LastName From User Where Id=:sampleRequestItem.Owner__c];
-        toEmail.add(userInfo.Email);
-      	mail.setToAddresses(toEmail);
-        mail.setReplyTo('Do_Not_Reply@bentleymills.com');
-        mail.setSenderDisplayName('Bentley Custom Samples Tracking - Do Not Reply');
-        mail.setSubject('The following sample has been moved to workin progress ' +SampleRequestItem.Id);
-       	String link = URL.getSalesforceBaseUrl().toExternalForm()+'/'+ SampleRequestItem.Id;
-       	mail.setHtmlBody('Please visit the following link to see the Sample Request Details ' + link);
-        mails.add(mail);
-        Messaging.sendEmail(mails);
-
-		system.debug('Finish Reject Email Procedures');
-        
-		Sample_Request_Item__c SRI = new Sample_Request_Item__c(id = sampleRequestItem.Id, Stage__c = 'Rejected' );
-        update SRI;
-		system.debug(sampleRequestItem.Stage__c);
-		        
-        PageReference p = new PageReference (link);
-        p.setRedirect(true);
-        return p; 
-    	
-    }
-    
     public PageReference newComment(){
     	PageReference p = Page.SampleRequestItemCommentPageEdit;
         p.setRedirect(true);
