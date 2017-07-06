@@ -4,7 +4,7 @@ public class SampleRequestCustomController {
     public id sampleRequestId {get; set;}
     
     
-    public SampleRequestCustomController(ApexPages.StandardController stdController){
+    public void SampleRequestCustomController(ApexPages.StandardController stdController){
         //field must be on the VFP page for it to work.
 		this.controller = stdController;
         this.sampleRequest = (Sample_Request__c) stdController.getRecord();
