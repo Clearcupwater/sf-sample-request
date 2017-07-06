@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>SampleRequestCustomController</members>
+        <members>SampleRequestItemCommentCustomController</members>
+        <members>SampleRequestItemCustomController</members>
+        <members>testForcePull</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>SampleRequestItemApprovalTrigger</members>
+        <members>SampleRequestItemTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>SampleRequestItemCommentPageEdit</members>
+        <members>SampleRequestItemPageEdit</members>
+        <members>SampleRequestItemPageView</members>
+        <members>SampleRequestPageEdit</members>
+        <name>ApexPage</name>
+    </types>
+    <version>37.0</version>
+</Package>

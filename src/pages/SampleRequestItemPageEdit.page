@@ -1,0 +1,283 @@
+<apex:page standardController="Sample_Request_Item__c" title="Sample Request Item Edit"
+           tabStyle="Sample_Request_Item__c" extensions="SampleRequestItemCustomController" action="{!runOnPageLoad}" sidebar="{!printerFriendly == false}" showheader="{!printerFriendly == false}" >
+    <apex:pageMessages />
+    <apex:form >
+		<apex:pageBlock title="Printer Friendly" rendered="{!printerFriendly}">
+					<apex:pageBlockButtons location="Top">
+					<apex:commandButton value="ReturnToPage" action="{!returnToRegularPage}"/>
+					</apex:pageBlockButtons>
+		</apex:pageBlock>
+		<apex:sectionHeader title="Sample Request Item One Request Per Item" subtitle="{!if(Sample_Request_Item__c.id == null, 'New Sample Request Item', Sample_Request_Item__c.SRI_Name__c)}"/>
+        <apex:pageBlock title="Sample request Item" >				
+				<apex:pageBlockButtons rendered="{!printerFriendly == false}">
+                    <apex:commandButton value="Save" action="{!save}"/>
+                    <apex:commandButton value="Approve" rendered="{!renderApprovalButton}" action="{!approve}"/>
+                    <apex:commandButton value="Reject" rendered="{!renderRejectButton}" action="{!reject}"/>
+                    <apex:commandButton value="Resubmit" rendered="{!renderResubmitButton}" action="{!resubmit}"/>
+                    <apex:commandButton value="Mark As In Progress" rendered="{!renderMarkAsInProgressButton}" action="{!markAsInProgress}"/>
+                    <apex:commandButton value="Needs Info From Sales Rep" rendered="{!renderNeedsAdditionalInformationButton}" action="{!needsAdditionalInformation}"/>
+                    <apex:commandButton value="Mark As Complete" rendered="{!renderMarkAsCompleteButton}" action="{!markAsComplete}"/>
+                    <apex:commandButton value="Printer Friendly" action="{!directToPrinterFriendly}"/>
+                    
+                </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1" title="Opportunity Data" rendered="{!Sample_Request_Item__c.id != null}">
+            	<apex:outputField value="{!Sample_Request_Item__c.Opportunity_Name__c}"/>
+            	<apex:outputField value="{!Sample_Request_Item__c.Opportunity_Amount__c}"/>
+            </apex:pageBlockSection>
+          	
+            <apex:pageBlockSection columns="1" title="Admin Info">
+                <apex:outputField value="{!Sample_Request_Item__c.Stage__c}"/>
+                <apex:inputField value="{!Sample_Request_Item__c.Sample_Request_Item_Type__c}" rendered="{!Sample_Request_Item__c.id == null}" label="Sample Request Item Type *">
+                    <apex:actionSupport event="onchange" rerender="SampleItems" action="{!reset}"/>
+                </apex:inputField>
+                <apex:outputField value="{!Sample_Request_Item__c.Sample_Request_Item_Type__c}" rendered="{!Sample_Request_Item__c.id != null}"/> 
+                <apex:outputField value="{!Sample_Request_Item__c.Sample_Request__c}" rendered="false"/>
+                <apex:inputField value="{!Sample_Request_Item__c.SR_Name_Link__c}" rendered="{!Sample_Request_Item__c.id != null}"/>
+                <apex:inputField value="{!Sample_Request_Item__c.Needed_By__c}" label="Needed by *" />
+                <apex:inputField value="{!Sample_Request_Item__c.To_Email__c}"/>
+                <apex:inputField value="{!Sample_Request_Item__c.Owner__c}" label="Owner *"/>
+                <apex:outputField Value="{!Sample_Request_Item__c.CreatedDate}"/>
+            </apex:pageBlockSection>
+        
+        
+        <apex:pageBlockSection columns="1" title="Shipping Information" id="ShippingInformation">
+        		<apex:inputField value="{!Sample_Request_Item__c.Shipping_Account__c}" label="Shipping Account *">
+        			<apex:actionSupport event="onchange" rerender="ShippingInformation" action="{!getNewAddress}" />
+        		</apex:inputField>
+            	<apex:inputField value="{!Sample_Request_Item__c.Shipping_Street__c}" label="Shipping Request Street *"/>
+        		<apex:inputField value="{!Sample_Request_Item__c.Shipping_City__c}" label="Shipping Request City *"/>
+				<apex:inputField value="{!Sample_Request_Item__c.Shipping_State_Province__c}" label="Shipping Request State *"/>        
+        		<apex:inputField value="{!Sample_Request_Item__c.Shipping_Zip_Postal_Code__c}" label="Shipping Request ZipCode *"/>
+        		<apex:inputField value="{!Sample_Request_Item__c.Shipping_Country__c}" label="Shipping Country *"/>
+        </apex:pageBlockSection>
+        </apex:pageBlock>
+		
+        <apex:pageBlock id="SampleItems" title="Sample Details" >
+        
+        
+        <apex:pageBlockSection title="Custom Sample" rendered="{!Sample_Request_Item__c.Sample_Request_Item_Type__c == 'Custom Sample'}" columns="1">
+				<apex:pageBlockSectionItem >
+                <apex:outputLabel value="Sample Details"/>
+            	<apex:pageBlockTable value="{!Sample_Request_Item__c}" var="sr">
+                    <apex:column headerValue="Style Description">
+                        <apex:inputField style="width:300px" value="{!sr.Style_Description__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="Color Description">
+                        <apex:inputField style="width:300px" value="{!sr.Color_Description__c}"/>
+                    </apex:column>
+                    
+            	</apex:pageBlockTable>
+        		</apex:pageBlockSectionItem>
+            
+                <br/>
+            
+            
+            <br/>
+            <apex:inputField value="{!Sample_Request_Item__c.Application__c}"/>
+            <br/>
+            <apex:inputField value="{!Sample_Request_Item__c.Has_Control_Sample__c}"/>
+            <apex:inputField value="{!Sample_Request_Item__c.Light_Source__c}"/>
+            <br/>
+            <apex:inputField style="width:400px" value="{!Sample_Request_Item__c.Revision_Notes__c}"/>
+            <apex:inputField style="width:400px" value="{!Sample_Request_Item__c.Additional_Comments__c}"/>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection title="Custom Simulation" rendered="{!Sample_Request_Item__c.Sample_Request_Item_Type__c == 'Custom Simulation'}" columns="1">
+        	<apex:pageBlockSectionItem >
+                <apex:outputLabel value="Sample Details"/>
+            	<apex:pageBlockTable value="{!Sample_Request_Item__c}" var="sr">
+                    <apex:column headerValue="Style Description">
+                        <apex:inputField style="width:200px" value="{!sr.Style_Description__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="Color Description">
+                        <apex:inputField style="width:200px" value="{!sr.Color_Description__c}"/>
+                    </apex:column>
+                    
+
+            	</apex:pageBlockTable>
+        		</apex:pageBlockSectionItem>
+            <br/>
+            <apex:inputField value="{!Sample_Request_Item__c.Delivery_Method__c}"/>
+            <apex:inputField value="{!Sample_Request_Item__c.Has_Control_Sample__c}"/>
+            <apex:inputField value="{!Sample_Request_Item__c.Light_Source__c}"/>
+            <br/>
+            <apex:inputField value="{!Sample_Request_Item__c.Room_Scene__c}"/>
+            <apex:inputField value="{!Sample_Request_Item__c.Simulation_Needs__c}"/>
+            <apex:inputField value="{!Sample_Request_Item__c.Installation_Method__c}"/>
+            <br/>
+            <apex:inputField value="{!Sample_Request_Item__c.Field__c}"/>
+            <apex:inputField value="{!Sample_Request_Item__c.Accent__c}"/>
+            <apex:inputField style="width:400px" value="{!Sample_Request_Item__c.Revision_Notes__c}"/>
+            <apex:inputField style="width:400px" value="{!Sample_Request_Item__c.Additional_Comments__c}"/>
+            
+        </apex:pageBlockSection>
+                
+        <apex:pageBlockSection title="Existing Inventory Sample" rendered="{!Sample_Request_Item__c.Sample_Request_Item_Type__c == 'Existing Inventory Sample'}" columns="1">
+                	<apex:pageBlockSectionItem >
+                <apex:outputLabel value="Sample Details"/>
+            	<apex:pageBlockTable value="{!Sample_Request_Item__c}" var="sr">
+                    <apex:column headerValue="Style Color">
+                        <apex:inputField value="{!sr.Style_Color__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="Style Description">
+                        <apex:inputField style="width:200px" value="{!sr.Style_Description__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="Color Description">
+                        <apex:inputField style="width:200px" value="{!sr.Color_Description__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="Backing Size Tile/Bdlm">
+                        <apex:inputField style="width:200px" value="{!sr.Backing_Description__c}"/>
+                    </apex:column>
+                    
+            	</apex:pageBlockTable>
+        		</apex:pageBlockSectionItem>
+            <apex:inputField value="{!Sample_Request_Item__c.Total_Mockup_Size__c}"/>
+            <apex:inputField value="{!Sample_Request_Item__c.Stock_Number__c}"/>
+            
+            <br/>
+            <apex:inputField style="width:400px" value="{!Sample_Request_Item__c.Revision_Notes__c}"/>
+            <apex:inputField style="width:400px" value="{!Sample_Request_Item__c.Additional_Comments__c}"/>
+            
+        </apex:pageBlockSection>
+        
+		<apex:pageBlockSection title="Production Required Sample" columns="1" rendered="{!Sample_Request_Item__c.Sample_Request_Item_Type__c == 'Production Required Sample'}">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Sample Details"/>
+            	<apex:pageBlockTable value="{!Sample_Request_Item__c}" var="sr">
+                    <apex:column headerValue="Style Color">
+                        <apex:inputField value="{!sr.Style_Color__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="Style Description">
+                        <apex:inputField style="width:200px" value="{!sr.Style_Description__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="Color Description">
+                        <apex:inputField style="width:200px" value="{!sr.Color_Description__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="Backing Size Tile/Bdlm">
+                        <apex:inputField style="width:200px" value="{!sr.Backing_Description__c}"/>
+                    </apex:column>
+            	</apex:pageBlockTable>
+        		</apex:pageBlockSectionItem>
+            
+            	<apex:inputField value="{!Sample_Request_Item__c.Total_Mockup_Size__c}"/>
+            	 <br/>
+            		<apex:inputField style="width:400px" value="{!Sample_Request_Item__c.Revision_Notes__c}"/>
+            		<apex:inputField style="width:400px" value="{!Sample_Request_Item__c.Additional_Comments__c}"/>
+            
+            	
+        </apex:pageBlockSection>
+            
+        
+
+        </apex:pageBlock>
+        
+                
+        <apex:pageBlock title="Approvals" rendered="{!if(Sample_Request_Item__c.id == null, false, true)}">
+   			<apex:pageBlockSection >
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Details"/>
+			    <apex:pageBlockTable value="{!Sample_Request_Item__c.Sample_Request_Item_Approvals__r}" var="sria">
+                	<apex:column headerValue="Approval Order">
+                        <apex:outputfield value="{!sria.Approval_Order__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="User">
+                        <apex:outputfield value="{!sria.User__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="Id">
+                        <apex:outputfield value="{!sria.id}"/>
+                    </apex:column>
+					<apex:column headerValue="Status">
+                        <apex:outputfield value="{!sria.Status__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="Emailed">
+                        <apex:outputfield value="{!sria.Emailed__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="Date Approved">
+                        <apex:outputfield value="{!sria.Date_Approved__c}"/>
+                    </apex:column>
+                
+                </apex:pageBlockTable>
+            
+            
+
+            </apex:pageBlockSectionItem>     	
+        	</apex:pageBlockSection>
+        
+        </apex:pageBlock>
+        
+        
+        <apex:pageBlock title="Comment History" rendered="{!if(Sample_Request_Item__c.id == null, false, true)}">
+        <apex:pageBlockButtons rendered="{if(printerFriendly == false, true, false)}">
+        		<apex:commandButton value="{!if(Sample_Request_Item__c.Stage__c == 'Needing Additional Information','Respond to Request for Information','New Comment')}" action="{!newComment}"/>
+        	</apex:pageBlockButtons>
+        <apex:pageBlockSection >
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="List"/>
+			    <apex:pageBlockTable value="{!Sample_Request_Item__c.Sample_Request_Item_Comments__r}" var="sric" columnsWidth="500px,300px, 100px, 100px">
+                	<apex:column headerValue="Comment">
+                        <apex:outputfield value="{!sric.Comment__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="Comment Reason">
+                        <apex:outputfield value="{!sric.Comment_Reason__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="Last Modified Date">
+                    	<apex:outputField value="{!sric.LastModifiedDate}"/>
+                    </apex:column>
+                    <apex:column headerValue="Created Date">
+                    	<apex:outputField value="{!sric.CreatedDate}"/>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSectionItem>
+        	</apex:pageBlockSection>
+        </apex:pageBlock>
+
+        
+        
+        
+        
+        
+
+    </apex:form>
+    
+   	<apex:form enctype="multipart/form-data">
+   		<apex:pageBlock title="Upload Attachment">
+   			<apex:pageBlockButtons >
+   				<apex:commandButton value="Save" action="{!upload}"/>
+   				
+   			</apex:pageBlockButtons>
+   			
+   			<apex:pageBlockSection showHeader="false" columns="2" id="block1">
+   				<apex:pageBlockSectionItem >
+   					<apex:outputLabel value="File Name" for="fileName"/>
+         			<apex:inputText value="{!attachment.name}" id="fileName"/>
+   				</apex:pageBlockSectionItem>
+   					
+   				<apex:pageBlockSectionItem >
+   					<apex:outputLabel value="File" for="file"/>
+   					<apex:inputFile value="{!attachment.body}" filename="{!attachment.name}" id="file"/>
+   				</apex:pageBlockSectionItem>
+   			
+   				<apex:pageBlockSectionItem >
+   					<apex:outputLabel value="Description" for="description"/>
+          			<apex:inputTextarea value="{!attachment.description}" id="description"/>
+   				</apex:pageBlockSectionItem>
+   			
+   			
+   			</apex:pageBlockSection>
+   			
+   			
+   			
+   			
+   		</apex:pageBlock>
+   	
+   	</apex:form>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</apex:page>

@@ -1,0 +1,93 @@
+<apex:page standardController="Sample_Request__c" title="Sample Request Edit"
+           tabStyle="Sample_Request__c" extensions="SampleRequestCustomController" action="{!runOnPageLoad}">
+    <apex:pageMessages />
+    <apex:form >
+        <apex:sectionHeader title="Sample Request" subtitle="{!if(Sample_Request__c.id == null, 'New Sample Request', Sample_Request__c.name)}"/>
+        <apex:pageBlock title="Sample Request" >
+				<apex:pageBlockButtons >
+                    <apex:commandButton value="Save" action="{!save}"/>
+                </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection title="Main Data" columns="1" id="maindata">
+                <apex:inputField value="{!Sample_Request__c.Opportunity_Name__c}"/>
+                <apex:outputField value="{!Sample_Request__c.Stage__c}"/>
+                <apex:inputField value="{!Sample_Request__c.Primary_Contact__c}"/>
+                <apex:inputField value="{!Sample_Request__c.Owner__c}"/>
+            
+            </apex:pageBlockSection>
+                <br/>
+                
+             <apex:pageBlockSection title="Requesting Account Info" columns="1" id="RequestingAccountInfo">
+                <apex:pageBlockSectionItem >
+                    <apex:outputText value="Requesting Account *" />
+                    <apex:inputField value="{!Sample_Request__c.Account__c}">
+                        <apex:actionSupport action="{!getOpportunityDataChangeAccount}" reRender="RequestingAccountInfo" event="onchange"/>
+                    </apex:inputField>    
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!Sample_Request__c.Shipping_Street__c}" label="Shipping Street *"/>
+                <apex:inputField value="{!Sample_Request__c.Shipping_City__c}" label="Shipping City *"/>
+                <apex:inputField value="{!Sample_Request__c.Shipping_State_Province__c}" label="Shipping State *"/>
+            	<apex:inputField value="{!Sample_Request__c.Shipping_Zip_Postal_Code__c}" label="Shipping Zip Code *"/>
+            	<apex:inputField value="{!Sample_Request__c.Shipping_Country__c}" label="Shipping Country *"/>
+
+            </apex:pageBlockSection>
+            	<br/>
+        </apex:pageBlock>    
+        
+        <apex:pageBlock title="Sample Request Items" rendered="{!if(Sample_Request__c.id == null, false, true)}">
+                <apex:pageBlockButtons >
+                    <apex:commandButton action="{!newSampleItem}" value="New"/>
+                </apex:pageBlockButtons>
+          		<apex:pageBLockSection title="Sample Items">
+            		<apex:pageBlockSectionItem >
+            	<apex:outputLabel value="Sample Items"/>
+                <apex:pageBlockTable value="{!Sample_Request__c.Sample_Request_Items__r}" var="SamItem">
+                    <apex:column headerValue="Action">
+                        <apex:outputLink value="/apex/SampleRequestItemPageEdit?id={!SamItem.Id}">Edit</apex:outputLink>
+                    </apex:column>
+                    <apex:column value="{!SamItem.Stage__c}"/>
+                    <apex:column value="{!SamItem.Full_Description__c}"/>
+                    <apex:column value="{!SamItem.CreatedDate}"/>
+                    <apex:column value="{!SamItem.LastModifiedDate}"/>
+                    <apex:column value="{!SamItem.Needed_By__c}"/>
+                </apex:pageBlockTable>   
+                   	</apex:pageBlockSectionItem>
+				</apex:pageBLockSection>
+         </apex:pageBlock>
+    
+        
+    
+    
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    </apex:form>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</apex:page>

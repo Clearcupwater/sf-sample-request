@@ -1,0 +1,56 @@
+<apex:page standardController="Sample_Request_Item_Comment__c" title="Sample Request Item Comment Edit"
+           tabStyle="Sample_Request_Item_Comment__c" extensions="SampleRequestItemCommentCustomController" action="{!runOnPageLoad}"  >
+    <apex:pageMessages />
+    <apex:form >
+		<apex:sectionHeader title="{!Instructions}"/>
+        <apex:pageBlock title="Comment" >
+				<apex:pageBlockButtons >
+                    <apex:commandButton value="Save" action="{!save}"/>
+                    
+                </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1" title="New Comment">
+                <apex:inputField style="width:400px" value="{!Sample_Request_Item_Comment__c.Comment__c}"/>
+            </apex:pageBlockSection>
+          
+            
+		
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Comment History" >
+   			<apex:pageBlockSection >
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Details"/>
+			    <apex:pageBlockTable value="{!sampleRequestItemComments}" var="sric" columnsWidth="400px,100px">
+                	<apex:column headerValue="Comments">
+                        <apex:outputfield value="{!sric.Comment__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="LastModifiedDate">
+                        <apex:outputfield value="{!sric.LastModifiedDate}"/>
+                    </apex:column>
+                   
+                </apex:pageBlockTable>
+
+            </apex:pageBlockSectionItem>     	
+        	</apex:pageBlockSection>
+        
+        </apex:pageBlock>
+        
+        
+
+        
+        
+        
+        
+        
+
+    </apex:form>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</apex:page>
