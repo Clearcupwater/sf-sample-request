@@ -112,7 +112,7 @@
             
         </apex:pageBlockSection>
                 
-        <apex:pageBlockSection title="Existing Inventory Sample" rendered="{!Sample_Request_Item__c.Sample_Request_Item_Type__c == 'Existing Inventory Sample'}" columns="1">
+        <apex:pageBlockSection title="Running Line Product Mockup" rendered="{!Sample_Request_Item__c.Sample_Request_Item_Type__c == 'Running Line Product Mockup'}" columns="1">
                 	<apex:pageBlockSectionItem >
                 <apex:outputLabel value="Sample Details"/>
             	<apex:pageBlockTable value="{!Sample_Request_Item__c}" var="sr">
@@ -140,7 +140,7 @@
             
         </apex:pageBlockSection>
         
-		<apex:pageBlockSection title="Production Required Sample" columns="1" rendered="{!Sample_Request_Item__c.Sample_Request_Item_Type__c == 'Production Required Sample'}">
+		<apex:pageBlockSection title="Custom/Custom Color PDS Product Mockup" columns="1" rendered="{!Sample_Request_Item__c.Sample_Request_Item_Type__c == 'Custom/Custom Color PDS Product Mockup'}">
             <apex:pageBlockSectionItem >
                 <apex:outputLabel value="Sample Details"/>
             	<apex:pageBlockTable value="{!Sample_Request_Item__c}" var="sr">
