@@ -17,7 +17,7 @@ trigger SampleRequestItemApprovalTrigger on Sample_Request_Item_Approval__c (aft
  		System.debug(notApprovedRecords);	
  		if(notApprovedRecords == 0){
 			 Sample_Request_Item__c sri = [Select id, Stage__c, Owner__c From Sample_Request_Item__c where id =: Sria.Sample_Request_Item__c]; 
- 			 sri.Stage__c = 'Approved';
+ 			 sri.Stage__c = 'Approved/Sent';
  			 system.debug(sri);
  			 update sri;
  			 

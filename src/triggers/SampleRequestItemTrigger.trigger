@@ -6,12 +6,12 @@ if(Trigger.isBefore){
     if(Trigger.isInsert == true){
         for(Sample_Request_Item__c srin: Trigger.new){
             if(srin.Sample_Request_Item_Type__c=='Custom Sample'){
-                    srin.Stage__c = 'Approved';
+                    srin.Stage__c = 'Approved/Sent';
                     
 
                     }
             if(srin.Sample_Request_Item_Type__c=='Custom Simulation'){
-                srin.Stage__c = 'Approved';
+                srin.Stage__c = 'Approved/Sent';
                 
 
 
@@ -70,7 +70,7 @@ if(Trigger.isBefore){
 		//checks to see if the item is approved. If approved, skpps the rest of the code
 		boolean turnOn; 
 		for (Sample_Request_Item__c check: Trigger.new){
-				if(check.Stage__c == 'Approved'){
+				if(check.Stage__c == 'Approved/Sent'){
 					turnOn = false;
 				} else
 					turnOn = true;
