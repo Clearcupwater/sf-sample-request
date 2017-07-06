@@ -14,9 +14,6 @@
                     <apex:commandButton value="Approve" rendered="{!renderApprovalButton}" action="{!approve}"/>
                     <apex:commandButton value="Reject" rendered="{!renderRejectButton}" action="{!reject}"/>
                     <apex:commandButton value="Resubmit" rendered="{!renderResubmitButton}" action="{!resubmit}"/>
-                    <apex:commandButton value="Mark As In Progress" rendered="{!renderMarkAsInProgressButton}" action="{!markAsInProgress}"/>
-                    <apex:commandButton value="Needs Info From Sales Rep" rendered="{!renderNeedsAdditionalInformationButton}" action="{!needsAdditionalInformation}"/>
-                    <apex:commandButton value="Mark As Complete" rendered="{!renderMarkAsCompleteButton}" action="{!markAsComplete}"/>
                     <apex:commandButton value="Printer Friendly" action="{!directToPrinterFriendly}"/>
                     
                 </apex:pageBlockButtons>
