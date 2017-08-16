@@ -34,7 +34,7 @@
             	
             	<apex:outputPanel >
             			<apex:inputField value="{!Sample_Request__c.Primary_Contact__c}" label="Primary Contact"/>
-            			<apex:inputField value="{!Sample_Request__c.Primary_Contact_First_Name__c}" label="First Name"/>
+            			
            		</apex:outputPanel>
            	</apex:pageBlockSection>
             	<br/>
