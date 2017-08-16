@@ -137,7 +137,7 @@
             
         </apex:pageBlockSection>
         
-		<apex:pageBlockSection title="Custom/Custom Color PDS Product Mockup" columns="1" rendered="{!Sample_Request_Item__c.Sample_Request_Item_Type__c == 'Custom/Custom Color PDS Product Mockup'}">
+		<apex:pageBlockSection title="Custom/Custom Color PDS Product Mockup" columns="1" rendered="{!Sample_Request_Item__c.Sample_Request_Item_Type__c == 'Custom/Custom Color PDS Production Trial'}">
             <apex:pageBlockSectionItem >
                 <apex:outputLabel value="Sample Details"/>
             	<apex:pageBlockTable value="{!Sample_Request_Item__c}" var="sr">

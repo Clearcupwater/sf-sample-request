@@ -18,12 +18,12 @@ if(Trigger.isBefore){
             		}
             
             
-            if(srin.Sample_Request_Item_Type__c=='Existing Inventory Sample'){
+            if(srin.Sample_Request_Item_Type__c=='Running Line Product Mockup'){
                 srin.Stage__c = 'Pending Approval';
                 
             }
             
-            if(srin.Sample_Request_Item_Type__c=='Production Required Sample'){
+            if(srin.Sample_Request_Item_Type__c=='Custom/Custom Color PDS Production Trial'){
                 srin.Stage__c = 'Pending Approval';
                 
             }
@@ -114,7 +114,7 @@ if(Trigger.isBefore){
         for(Sample_Request_Item__c srin: Trigger.new){
             
             for(User r : RvpInfo){
-            if(srin.Sample_Request_Item_Type__c=='Custom/Custom Color PDS Product Mockup'){
+            if(srin.Sample_Request_Item_Type__c=='Custom/Custom Color PDS Production Trial'){
                 Sample_Request_Item_Approval__c sria = new Sample_Request_Item_Approval__c(Approval_Order__c = 1, Sample_Request_Item__c = srin.id, Status__c = 'Pending', User__c = r.id); 
             	insertRecords.add(sria);
             	//
