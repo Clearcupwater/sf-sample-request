@@ -1,9 +1,6 @@
 <apex:page standardController="Sample_Request__c" title="Sample Request Edit"
            tabStyle="Sample_Request__c" extensions="SampleRequestCustomController" action="{!runOnPageLoad}">
 			<apex:pageMessages />
-			     <style>
-             		#col1,#col2{width:49%;display:inline-block;}
-             	 </style>
     <apex:form >
         <apex:sectionHeader title="Sample Request" subtitle="{!if(Sample_Request__c.id == null, 'New Sample Request', Sample_Request__c.name)}"/>
         <apex:pageBlock title="Sample Request" >
@@ -21,7 +18,7 @@
                 <br/>
                 
              <apex:pageBlockSection title="Requesting Account Info" columns="2" id="RequestingAccountInfo">
-                <apex:outputPanel>
+                <apex:outputPanel >
 	           			<apex:pageBlockSectionItem >
 		                    <apex:outputText value="Requesting Account *" />
 		                    <apex:inputField value="{!Sample_Request__c.Account__c}">
@@ -35,7 +32,7 @@
 		            	<apex:inputField value="{!Sample_Request__c.Shipping_Country__c}" label="Shipping Country *"/>
             	</apex:outputPanel>
             	
-            	<apex:outputPanel>
+            	<apex:outputPanel >
             		<apex:pageBlock >
             			<apex:inputField value="{!Sample_Request__c.Primary_Contact__c}" label="Primary Contact"/>
             			<apex:inputField value="{!Sample_Request__c.Primary_Contact_First_Name__c}" label="First Name"/>
