@@ -18,6 +18,9 @@
                 <br/>
                 
              <apex:pageBlockSection title="Requesting Account Info" columns="1" id="RequestingAccountInfo">
+             	<style>
+             		#col1,#col2{width:49%;display:inline-block;}
+             	</style>
                 <div id = "col1">
                 <apex:pageBlockSectionItem >
                     <apex:outputText value="Requesting Account *" />
