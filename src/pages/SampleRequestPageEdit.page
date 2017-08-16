@@ -18,7 +18,7 @@
                 <br/>
                 
              <apex:pageBlockSection title="Requesting Account Info" columns="2" id="RequestingAccountInfo">
-                <apex:panelGrid>
+                <apex:panelGrid columns = "1">
 	           			<apex:pageBlockSectionItem >
 		                    <apex:outputText value="Requesting Account *" />
 		                    <apex:inputField value="{!Sample_Request__c.Account__c}">
@@ -32,7 +32,7 @@
 		            	<apex:inputField value="{!Sample_Request__c.Shipping_Country__c}" label="Shipping Country *"/>
             	</apex:panelGrid>
             	
-            	<apex:panelGrid>
+            	<apex:panelGrid columns = "1">
             		<apex:inputField value="{!Sample_Request__c.Primary_Contact__c}" label="Primary Contact"/>
             	</apex:panelGrid>
             			
