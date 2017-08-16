@@ -29,7 +29,12 @@
                 <apex:inputField value="{!Sample_Request__c.Shipping_State_Province__c}" label="Shipping State *"/>
             	<apex:inputField value="{!Sample_Request__c.Shipping_Zip_Postal_Code__c}" label="Shipping Zip Code *"/>
             	<apex:inputField value="{!Sample_Request__c.Shipping_Country__c}" label="Shipping Country *"/>
-
+            	
+            	<apex:panelgrid>
+         		<apex:inputField value="{!Sample_Request_Item__c.Primary_Contact__c}" label="Primary Contact"/>
+     			<apex:inputFIeld value="{!Sample_Request_Item__c.Primary_Contact_First_Name__c}" label = "First Name"/>
+          		
+            	</apex:panelgrid>
             </apex:pageBlockSection>
             	<br/>
         </apex:pageBlock>    
