@@ -16,7 +16,7 @@
             
             </apex:pageBlockSection>
              <apex:pageBlockSection title="Requesting Account Info" columns="1" id="RequestingAccountInfo">
-                <div style = {"float:left"; width:200px; background: lightblue;}>
+                <div style = "{float:left; width:200px;}">
          		<apex:pageBlockSectionItem >
                    <apex:outputText value="Requesting Account *" />
                    <apex:inputField value="{!Sample_Request__c.Account__c}">
@@ -31,7 +31,7 @@
 			   </div>
 			   
 			   
-			   <div style={"float:right"; width: calc(100%-200px); background: lightgreen;}">
+			   <div style="{float:right; width: calc(100%-200px);}">
 			   		<apex:inputField value="{!Sample_Request__c.Primary_Contact__c}" label="Primary Contact"/>
 			   </div>
            	</apex:pageBlockSection>
