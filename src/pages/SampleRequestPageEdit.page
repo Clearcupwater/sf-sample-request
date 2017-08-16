@@ -18,7 +18,7 @@
                 <br/>
                 
              <apex:pageBlockSection title="Requesting Account Info" columns="2" id="RequestingAccountInfo">
-                <apex:outputPanel >
+                <apex:panelGrid>
 	           			<apex:pageBlockSectionItem >
 		                    <apex:outputText value="Requesting Account *" />
 		                    <apex:inputField value="{!Sample_Request__c.Account__c}">
@@ -30,12 +30,14 @@
 		                <apex:inputField value="{!Sample_Request__c.Shipping_State_Province__c}" label="Shipping State *"/>
 		            	<apex:inputField value="{!Sample_Request__c.Shipping_Zip_Postal_Code__c}" label="Shipping Zip Code *"/>
 		            	<apex:inputField value="{!Sample_Request__c.Shipping_Country__c}" label="Shipping Country *"/>
-            	</apex:outputPanel>
+            	</apex:panelGrid>
             	
-            	<apex:outputPanel >
-            			<apex:inputField value="{!Sample_Request__c.Primary_Contact__c}" label="Primary Contact"/>
+            	<apex:panelGrid>
+            		<apex:inputField value="{!Sample_Request__c.Primary_Contact__c}" label="Primary Contact"/>
+            	</apex:panelGrid>
             			
-           		</apex:outputPanel>
+            			
+           		
            	</apex:pageBlockSection>
             	<br/>
         </apex:pageBlock>    
