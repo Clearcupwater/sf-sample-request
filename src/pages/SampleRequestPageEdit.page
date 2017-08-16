@@ -15,8 +15,6 @@
                 <apex:inputField value="{!Sample_Request__c.Owner__c}"/>
             
             </apex:pageBlockSection>
-                <br/>
-                
              <apex:pageBlockSection title="Requesting Account Info" columns="2" id="RequestingAccountInfo">
                 <div style = "float:left">
          		<apex:pageBlockSectionItem >
