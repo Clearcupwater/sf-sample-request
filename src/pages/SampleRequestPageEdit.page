@@ -1,9 +1,9 @@
 <apex:page standardController="Sample_Request__c" title="Sample Request Edit"
            tabStyle="Sample_Request__c" extensions="SampleRequestCustomController" action="{!runOnPageLoad}">
-                 <style>
+			<apex:pageMessages />
+			     <style>
              		#col1,#col2{width:49%;display:inline-block;}
              	 </style>
-    <apex:pageMessages />
     <apex:form >
         <apex:sectionHeader title="Sample Request" subtitle="{!if(Sample_Request__c.id == null, 'New Sample Request', Sample_Request__c.name)}"/>
         <apex:pageBlock title="Sample Request" >
@@ -22,17 +22,17 @@
                 
              <apex:pageBlockSection title="Requesting Account Info" columns="1" id="RequestingAccountInfo">
                 <div id = "col1">
-                <apex:pageBlockSectionItem >
-                    <apex:outputText value="Requesting Account *" />
-                    <apex:inputField value="{!Sample_Request__c.Account__c}">
-                        <apex:actionSupport action="{!getOpportunityDataChangeAccount}" reRender="RequestingAccountInfo" event="onchange"/>
-                    </apex:inputField>    
-                </apex:pageBlockSectionItem>
-                <apex:inputField value="{!Sample_Request__c.Shipping_Street__c}" label="Shipping Street *"/>
-                <apex:inputField value="{!Sample_Request__c.Shipping_City__c}" label="Shipping City *"/>
-                <apex:inputField value="{!Sample_Request__c.Shipping_State_Province__c}" label="Shipping State *"/>
-            	<apex:inputField value="{!Sample_Request__c.Shipping_Zip_Postal_Code__c}" label="Shipping Zip Code *"/>
-            	<apex:inputField value="{!Sample_Request__c.Shipping_Country__c}" label="Shipping Country *"/>
+	                <apex:pageBlockSectionItem >
+	                    <apex:outputText value="Requesting Account *" />
+	                    <apex:inputField value="{!Sample_Request__c.Account__c}">
+	                        <apex:actionSupport action="{!getOpportunityDataChangeAccount}" reRender="RequestingAccountInfo" event="onchange"/>
+	                    </apex:inputField>    
+	                </apex:pageBlockSectionItem>
+	                <apex:inputField value="{!Sample_Request__c.Shipping_Street__c}" label="Shipping Street *"/>
+	                <apex:inputField value="{!Sample_Request__c.Shipping_City__c}" label="Shipping City *"/>
+	                <apex:inputField value="{!Sample_Request__c.Shipping_State_Province__c}" label="Shipping State *"/>
+	            	<apex:inputField value="{!Sample_Request__c.Shipping_Zip_Postal_Code__c}" label="Shipping Zip Code *"/>
+	            	<apex:inputField value="{!Sample_Request__c.Shipping_Country__c}" label="Shipping Country *"/>
             	</div>
             	
             	<div id = "col2">
