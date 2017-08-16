@@ -34,11 +34,6 @@
 			   <div style="text-align: right">
 			   		<apex:inputField value="{!Sample_Request__c.Primary_Contact__c}" label="Primary Contact"/>
 			   </div>
-			   
-            	
-            			
-            			
-           		
            	</apex:pageBlockSection>
             	<br/>
         </apex:pageBlock>    
