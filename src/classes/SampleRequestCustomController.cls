@@ -55,7 +55,7 @@ public class SampleRequestCustomController {
             sampleRequest.Shipping_State_Province__c = acct.ShippingState;
             sampleRequest.Shipping_Zip_Postal_Code__c = acct.ShippingPostalCode;
             sampleRequest.Shipping_Country__c = acct.ShippingCountry; 
-        }   
+        }
         
         
     }
@@ -71,7 +71,15 @@ public class SampleRequestCustomController {
         
     }
     
-    
+    public void getContactDataChangeContact(){
+    		Contact cont = [Select ID, FirstName, LastName, Email, MobilePhone From Contacts Where id =: sampleRequest.Primary_Contact__c];
+    		//set value
+    		sampleRequest.Primary_Contact_First_Name__c	= cont.FirstName;
+    		sampleRequest.Primary_Contact_Last_Name__c = cont.LastName;
+    		sampleRequest.Primary_Contact_Phone_Number__c = cont.MobilePhone;
+    		sampleRequest.Primary_Contact_Email__c = cont.Email;
+    	
+    }
 
     
     public PageReference newSampleItem() {

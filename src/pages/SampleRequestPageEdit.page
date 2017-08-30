@@ -11,30 +11,33 @@
             <apex:pageBlockSection title="Main Data" columns="1" id="maindata">
                 <apex:inputField value="{!Sample_Request__c.Opportunity_Name__c}"/>
                 <apex:outputField value="{!Sample_Request__c.Stage__c}"/>
-                <apex:inputField value="{!Sample_Request__c.Primary_Contact__c}"/>
                 <apex:inputField value="{!Sample_Request__c.Owner__c}"/>
             
             </apex:pageBlockSection>
-             <apex:pageBlockSection title="Requesting Account Info" columns="1" id="RequestingAccountInfo">
-                <div style = "{float:left; width:200px;}">
+             <apex:pageBlockSection title="Requesting Account Info" columns="2" id="RequestingAccountInfo">
          		<apex:pageBlockSectionItem >
                    <apex:outputText value="Requesting Account *" />
                    <apex:inputField value="{!Sample_Request__c.Account__c}">
                        <apex:actionSupport action="{!getOpportunityDataChangeAccount}" reRender="RequestingAccountInfo" event="onchange"/>
                    </apex:inputField>    
               	</apex:pageBlockSectionItem>
+              	<apex:pageBlockSectionItem >
+                   <apex:outputText value="Requesting Contact *" />
+                   <apex:inputField value="{!Sample_Request__c.Primary_Contact__c}">
+                       <apex:actionSupport action="{!getContactDataChangeContact}" reRender="RequestingAccountInfo" event="onchange"/>
+                   </apex:inputField>    
+              	</apex:pageBlockSectionItem>
                <apex:inputField value="{!Sample_Request__c.Shipping_Street__c}" label="Shipping Street *"/>
+               <apex:inputField value="{!Sample_Request__c.Primary_Contact_First_Name__c}" label="First Name *"/>
                <apex:inputField value="{!Sample_Request__c.Shipping_City__c}" label="Shipping City *"/>
+               <apex:inputField value="{!Sample_Request__c.Primary_Contact_Last_Name__c}" label="Last Name *"/>
                <apex:inputField value="{!Sample_Request__c.Shipping_State_Province__c}" label="Shipping State *"/>
+               <apex:inputField value="{!Sample_Request__c.Primary_Contact_Phone_Number__c}" label="Phone Number *"/>
            	   <apex:inputField value="{!Sample_Request__c.Shipping_Zip_Postal_Code__c}" label="Shipping Zip Code *"/>
+           	   <apex:inputField value="{!Sample_Request__c.Primary_Contact_Email__c}" label="Email *"/>
            	   <apex:inputField value="{!Sample_Request__c.Shipping_Country__c}" label="Shipping Country *"/>
-			   </div>
-			   
-			   
-			   <div style="{float:right; width: calc(100%-200px);}">
-			   		<apex:inputField value="{!Sample_Request__c.Primary_Contact__c}" label="Primary Contact"/>
-			   </div>
-           	</apex:pageBlockSection>
+
+           		</apex:pageBlockSection>
             	<br/>
         </apex:pageBlock>    
         
