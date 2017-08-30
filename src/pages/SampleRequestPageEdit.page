@@ -28,8 +28,8 @@
                    </apex:inputField>    
               	</apex:pageBlockSectionItem>
                <apex:inputField value="{!Sample_Request__c.Shipping_Street__c}" label="Shipping Street *"/>
-               <apex:inputField value="{!Sample_Request__c.Primary_Contact_First_Name__c}" label="First Name *" rendered ="{!if(Sample_Request__c.Primary_Contact__c == null)}"/>
-               <apex:inputField value="{!Sample_Request__c.Shipping_City__c}" label="Shipping City *" rendered ="{!if(Sample_Request__c.Primary_Contact__c == null)}" />
+               <apex:inputField value="{!Sample_Request__c.Primary_Contact_First_Name__c}" label="First Name *" rendered="{!if(Sample_Request__c.Primary_Contact__c == null, true, false)}"/>
+               <apex:inputField value="{!Sample_Request__c.Shipping_City__c}" label="Shipping City *" rendered="{!if(Sample_Request__c.Primary_Contact__c == null, true, false)}" />
                <apex:inputField value="{!Sample_Request__c.Primary_Contact_Last_Name__c}" label="Last Name *"/>
                <apex:inputField value="{!Sample_Request__c.Shipping_State_Province__c}" label="Shipping State *"/>
                <apex:inputField value="{!Sample_Request__c.Primary_Contact_Phone_Number__c}" label="Phone Number *"/>
