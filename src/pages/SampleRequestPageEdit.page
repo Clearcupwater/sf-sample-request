@@ -14,9 +14,9 @@
                 <apex:inputField value="{!Sample_Request__c.Owner__c}"/>
             
             </apex:pageBlockSection>
-             <apex:pageBlockSection title="Requesting Account Info" columns="2" id="RequestingAccountInfo">
+             <apex:pageBlockSection title="Requester Info" columns="2" id="RequestingAccountInfo">
          		<apex:pageBlockSectionItem >
-                   <apex:outputText value="Requesting Account *" />
+                   <apex:outputText value="Requestin g Account *" />
                    <apex:inputField value="{!Sample_Request__c.Account__c}">
                        <apex:actionSupport action="{!getOpportunityDataChangeAccount}" reRender="RequestingAccountInfo" event="onchange"/>
                    </apex:inputField>    
@@ -28,8 +28,8 @@
                    </apex:inputField>    
               	</apex:pageBlockSectionItem>
                <apex:inputField value="{!Sample_Request__c.Shipping_Street__c}" label="Shipping Street *"/>
-               <apex:inputField value="{!Sample_Request__c.Primary_Contact_First_Name__c}" label="First Name *"/>
-               <apex:inputField value="{!Sample_Request__c.Shipping_City__c}" label="Shipping City *"/>
+               <apex:inputField value="{!Sample_Request__c.Primary_Contact_First_Name__c}" label="First Name *" disabled ="{!if(Sample_Request__c.Primary_Contact__c == null)}"/>
+               <apex:inputField value="{!Sample_Request__c.Shipping_City__c}" label="Shipping City *" disabled ="{!if(Sample_Request__c.Primary_Contact__c == null)}" />
                <apex:inputField value="{!Sample_Request__c.Primary_Contact_Last_Name__c}" label="Last Name *"/>
                <apex:inputField value="{!Sample_Request__c.Shipping_State_Province__c}" label="Shipping State *"/>
                <apex:inputField value="{!Sample_Request__c.Primary_Contact_Phone_Number__c}" label="Phone Number *"/>
