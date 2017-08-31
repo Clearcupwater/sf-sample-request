@@ -96,7 +96,8 @@ public class SampleRequestItemCustomController {
         sampleRequestItem.Shipping_Zip_Postal_Code__c= sr.Shipping_Zip_Postal_Code__c;
         sampleRequestItem.Shipping_State_Province__c = sr.Shipping_State_Province__c;
         sampleRequestItem.Owner__c = sr.Owner__c;
-        If(sampleRequestItem.Primary_Contact__c != null){
+        If(sr.Primary_Contact__c != null){
+      		
             sampleRequestItem.Primary_Contact__c = sr.Primary_Contact__c;
             sampleRequestItem.Primary_Contact_First_Name__c = sr.Primary_Contact_First_Name__c;
             sampleRequestItem.Primary_Contact_Last_Name__c = sr.Primary_Contact_Last_Name__c;
@@ -318,7 +319,7 @@ public class SampleRequestItemCustomController {
     public void getNewContact(){
     	 if(sampleRequestItem.Primary_Contact__c == null){
     	sampleRequestItem.Primary_Contact_First_Name__c = '';
-    	sampleRequestItem.Primary_Contact_Lasst_Name__c = '';
+    	sampleRequestItem.Primary_Contact_Last_Name__c = '';
     	sampleRequestItem.Primary_Contact_Email__c = '';
     	sampleRequestItem.Primary_Contact_Phone_number__c = '';
     	
@@ -326,7 +327,7 @@ public class SampleRequestItemCustomController {
     		    	
     	Contact cont = [Select ID, FirstName, LastName, Email, MobilePhone From Contact Where id =:  sampleRequestItem.Primary_Contact__c];
     	sampleRequestItem.Primary_Contact_First_Name__c = cont.FirstName;
-    	sampleRequestItem.Primary_Contact_Lasst_Name__c = cont.LastName;
+    	sampleRequestItem.Primary_Contact_Last_Name__c = cont.LastName;
     	sampleRequestItem.Primary_Contact_Email__c = cont.Email;
     	sampleRequestItem.Primary_Contact_Phone_number__c = cont.MobilePhone;   		
     	}

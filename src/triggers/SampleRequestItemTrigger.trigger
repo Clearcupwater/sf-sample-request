@@ -57,11 +57,13 @@ if(Trigger.isBefore){
               		List <String> automaticApprovalTo = new List <String>();
               		
                     automaticApprovalTo.add(DirectOwner.Email);
+                    //customs@bentleymills.com
+                    automaticApprovalTo.add('clearcupwater@gmail.com');
                     automaticApproval.setToAddresses(automaticApprovalTo);
                     automaticApproval.setReplyTo('Do_Not_Reply@bentleymills.com');
                     automaticApproval.setSenderDisplayName('Bentley Custom Samples Tracking - Do Not Reply');
                     automaticApproval.setSubject('Your Custom Sample/Sim has been automatically approved');
-                    automaticApproval.setHtmlBody(' Please visit the following link to view your progress ' + Url);
+                    automaticApproval.setHtmlBody(' The following is a link to your request' + Url);
                     quickApprovals.add(automaticApproval);
                     Messaging.sendEmail(quickApprovals);
 			
