@@ -88,7 +88,7 @@ public class SampleRequestItemCustomController {
     
     public void setDefaults(){
         if(sampleRequestItem.Sample_Request__c != null){
-        Sample_Request__c sr = [Select Id, Owner__c, Primary_Contact__c, Account__c, Shipping_City__c, Shipping_Country__c, Shipping_State_Province__c, Shipping_Street__c, Shipping_Zip_Postal_Code__c, Stage__c From Sample_Request__c Where id = : sampleRequestItem.Sample_Request__c];
+        Sample_Request__c sr = [Select Id, Owner__c, Primary_Contact__c, Primary_Contact_First_Name__c, Primary_Contact_Last_Name__c, Primary_Contact_Email__c, Primary_Contact_Phone_Number__c,  Account__c, Shipping_City__c, Shipping_Country__c, Shipping_State_Province__c, Shipping_Street__c, Shipping_Zip_Postal_Code__c, Stage__c From Sample_Request__c Where id = : sampleRequestItem.Sample_Request__c];
         sampleRequestItem.Shipping_Account__c= sr.Account__c;
         sampleRequestItem.Shipping_City__c= sr.Shipping_City__c;
         sampleRequestItem.Shipping_Country__c= sr.Shipping_Country__c;
@@ -96,8 +96,12 @@ public class SampleRequestItemCustomController {
         sampleRequestItem.Shipping_Zip_Postal_Code__c= sr.Shipping_Zip_Postal_Code__c;
         sampleRequestItem.Shipping_State_Province__c = sr.Shipping_State_Province__c;
         sampleRequestItem.Owner__c = sr.Owner__c;
-        If(sampleRequestItem.To_Email__c != null){
-            sampleRequestItem.To_Email__c = sr.Primary_Contact__c +',';
+        If(sampleRequestItem.Primary_Contact__c != null){
+            sampleRequestItem.Primary_Contact__c = sr.Primary_Contact__c;
+            sampleRequestItem.Primary_Contact_First_Name__c = sr.Primary_Contact_First_Name__c;
+            sampleRequestItem.Primary_Contact_Last_Name__c = sr.Primary_Contact_Last_Name__c;
+            sampleRequestItem.Primary_Contact_Email__c = sr.Primary_Contact_Email__c;
+            sampleRequestItem.Primary_Contact_Phone_Number__c = sr.Primary_Contact_Phone_Number__c;
         }
      }
         
@@ -289,12 +293,55 @@ public class SampleRequestItemCustomController {
     
     
     public void getNewAddress(){
+    	if(sampleRequestItem.Shipping_Account__c == null){
+    	sampleRequestItem.Shipping_Street__c = '';
+    	sampleRequestItem.Shipping_City__c = '';
+    	sampleRequestItem.Shipping_State_Province__c = '';
+    	sampleRequestItem.Shipping_Zip_Postal_Code__c= '';
+    	sampleRequestItem.Shipping_Country__c= '';
+    	
+    	
+    	} else{
+    		    	
     	Account accountInfo = [Select ShippingStreet, ShippingCity, ShippingState, ShippingPostalCode, ShippingCountry From Account where id =: sampleRequestItem.Shipping_Account__c];
     	sampleRequestItem.Shipping_Street__c = accountInfo.ShippingStreet;
     	sampleRequestItem.Shipping_City__c = accountINfo.ShippingCity;
     	sampleRequestItem.Shipping_State_Province__c = accountInfo.ShippingState;
     	sampleRequestItem.Shipping_Zip_Postal_Code__c= accountInfo.ShippingPostalCode;
     	sampleRequestItem.Shipping_Country__c= accountInfo.ShippingCountry;
+    		
+    	}
+    	
+
+    }
+    
+    public void getNewContact(){
+    	 if(sampleRequestItem.Primary_Contact__c == null){
+    	sampleRequestItem.Primary_Contact_First_Name__c = '';
+    	sampleRequestItem.Primary_Contact_Lasst_Name__c = '';
+    	sampleRequestItem.Primary_Contact_Email__c = '';
+    	sampleRequestItem.Primary_Contact_Phone_number__c = '';
+    	
+    	} else{
+    		    	
+    	Contact cont = [Select ID, FirstName, LastName, Email, MobilePhone From Contact Where id =:  sampleRequestItem.Primary_Contact__c];
+    	sampleRequestItem.Primary_Contact_First_Name__c = cont.FirstName;
+    	sampleRequestItem.Primary_Contact_Lasst_Name__c = cont.LastName;
+    	sampleRequestItem.Primary_Contact_Email__c = cont.Email;
+    	sampleRequestItem.Primary_Contact_Phone_number__c = cont.MobilePhone;   		
+    	}
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
     }
     
     public PageReference directToPrinterFriendly(){

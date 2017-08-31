@@ -37,14 +37,23 @@
             </apex:pageBlockSection>
         
         
-        <apex:pageBlockSection columns="1" title="Shipping Information" id="ShippingInformation">
+        <apex:pageBlockSection columns="2" title="Shipping Information" id="ShippingInformation">
         		<apex:inputField value="{!Sample_Request_Item__c.Shipping_Account__c}" label="Shipping Account *">
         			<apex:actionSupport event="onchange" rerender="ShippingInformation" action="{!getNewAddress}" />
         		</apex:inputField>
+        		<apex:inputField value="{!Sample_Request_Item__c.Primary_Contact__c}" label="Primary Contact *">
+        			<apex:actionSupport event="onchange" rerender="ShippingInformation" action="{!getNewContact}" />
+        		</apex:inputField>
             	<apex:inputField value="{!Sample_Request_Item__c.Shipping_Street__c}" label="Shipping Request Street *"/>
+            	<apex:inputField value="{!Sample_Request_Item__c.Primary_Contact_First_Name__c}" label="First Name *" rendered="{!if(Sample_Request_Item__c.Primary_Contact__c == null, true, false)}"/>
+            	<apex:outputField value="{!Sample_Request_Item__c.Primary_Contact_First_Name__c}" label="First Name *" rendered="{!if(Sample_Request_Item__c.Primary_Contact__c == null, false, true)}"/>
         		<apex:inputField value="{!Sample_Request_Item__c.Shipping_City__c}" label="Shipping Request City *"/>
-				<apex:inputField value="{!Sample_Request_Item__c.Shipping_State_Province__c}" label="Shipping Request State *"/>        
+        		 <apex:inputField value="{!Sample_Request_Item__c.Primary_Contact_Last_Name__c}" label="Last Name *" rendered="{!if(Sample_Request_Item__c.Primary_Contact__c == null, true, false)}"/>
+            	<apex:outputField value="{!Sample_Request_Item__c.Primary_Contact_Last_Name__c}" label="Last Name *" rendered="{!if(Sample_Request_Item__c.Primary_Contact__c == null, false, true)}"/>
+				<apex:inputField value="{!Sample_Request_Item__c.Shipping_State_Province__c}" label="Shipping Request State *"/>
+				<apex:inputField value="{!Sample_Request_Item__c.Primary_Contact_Phone_Number__c}" label="Phone Number *"/>
         		<apex:inputField value="{!Sample_Request_Item__c.Shipping_Zip_Postal_Code__c}" label="Shipping Request ZipCode *"/>
+        		<apex:inputField value="{!Sample_Request_Item__c.Primary_Contact_Email__c}" label="Email *"/>
         		<apex:inputField value="{!Sample_Request_Item__c.Shipping_Country__c}" label="Shipping Country *"/>
         </apex:pageBlockSection>
         </apex:pageBlock>
