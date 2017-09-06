@@ -2,6 +2,7 @@ public class SampleRequestCustomController {
     public ApexPages.StandardController controller;
     public Sample_Request__c sampleRequest {get; set;}
     public id sampleRequestId {get; set;}
+    public double opportunityAmountTest {get; set;}  
     
     
     public SampleRequestCustomController(ApexPages.StandardController stdController){
@@ -14,9 +15,16 @@ public class SampleRequestCustomController {
     public PageReference runOnPageLoad(){
         messageCheck();
         try {
+     	setOpportunityAmountTest();
      	getOpportunityDataNewPage();
-            return null;
-            }
+     	if (opportunityAmountTest == null) {
+        		PageReference p = issueError('Please return to the Opportunity and add opportunity amount on the project');
+        		return p;
+        	} else {
+        		return null; 
+        	}
+        }
+            
         catch (QueryException e){
             PageReference p =issueError('Do not be dumb. Create Data From an Opportunity. - ' + e.getMessage());
             return p;
@@ -25,10 +33,7 @@ public class SampleRequestCustomController {
             PageReference p = issueError('You got an error ' + e.getMessage());
             return p;
         }
-        finally{   
-        }
-        
-        
+           
     }
     
     public void messageCheck(){
@@ -45,7 +50,7 @@ public class SampleRequestCustomController {
     
     public void getOpportunityDataNewPage(){
         if(sampleRequest.Account__c==null && sampleRequest.Shipping_Street__c==null){
-			Opportunity opp = [Select Id, AccountId, OwnerId From Opportunity Where id = :samplerequest.Opportunity__c ];
+        	Opportunity opp = [Select Id, AccountId, OwnerId, Amount From Opportunity Where id = :samplerequest.Opportunity__c ];
             Account acct = [Select Id, ShippingStreet, ShippingCity,ShippingState, ShippingPostalCode,ShippingCountry From Account Where id =:opp.AccountId];
             //set values
             sampleRequest.Account__c= opp.accountid;
@@ -54,11 +59,29 @@ public class SampleRequestCustomController {
             sampleRequest.Shipping_City__c = acct.ShippingCity;
             sampleRequest.Shipping_State_Province__c = acct.ShippingState;
             sampleRequest.Shipping_Zip_Postal_Code__c = acct.ShippingPostalCode;
-            sampleRequest.Shipping_Country__c = acct.ShippingCountry; 
-        }
-        
-        
+            sampleRequest.Shipping_Country__c = acct.ShippingCountry;
+        } 
+      
     }
+    
+    public void setOpportunityAmountTest() {
+    	if (sampleRequest.Opportunity_Amount__c == null){
+    			// new
+    			system.debug('On new'); 
+        		String returnurl = ApexPages.currentPage().getParameters().get('retURL');
+    			String oppId = returnurl.right(15);
+    			Opportunity opp = [Select Amount from Opportunity where id =:oppId];
+    			this.opportunityAmountTest = opp.amount;
+        	} else {
+        		system.debug('On Old');
+        		system.debug(ApexPages.currentPage().getParameters().get('id'));
+        		Sample_Request__c sr = [Select Opportunity_Amount__c from Sample_Request__c where id =: ApexPages.currentPage().getParameters().get('id')];
+        		this.opportunityAmountTest = sr.Opportunity_Amount__c;
+        	}
+    	}    	
+    
+    
+    
     //fires when Account record is changed
     public void getOpportunityDataChangeAccount(){
             if(sampleRequest.Account__c == null) {
@@ -75,11 +98,10 @@ public class SampleRequestCustomController {
             sampleRequest.Shipping_State_Province__c = acct.ShippingState;
             sampleRequest.Shipping_Zip_Postal_Code__c = acct.ShippingPostalCode;
             sampleRequest.Shipping_Country__c = acct.ShippingCountry;          	
-            }
-            
-    
-        
+            }   
     }
+    
+   
     
     public void getContactDataChangeContact(){
     		if(sampleRequest.Primary_Contact__c == null){
@@ -93,8 +115,7 @@ public class SampleRequestCustomController {
     		sampleRequest.Primary_Contact_First_Name__c	= cont.FirstName;
     		sampleRequest.Primary_Contact_Last_Name__c = cont.LastName;
     		sampleRequest.Primary_Contact_Phone_Number__c = cont.MobilePhone;
-    		sampleRequest.Primary_Contact_Email__c = cont.Email;
-    			
+    		sampleRequest.Primary_Contact_Email__c = cont.Email;	
     		}
     }
 
