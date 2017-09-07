@@ -76,7 +76,7 @@
         		</apex:pageBlockSectionItem>
             
                 <br/>
-            
+            <apex:inputField value="{!Sample_Request_Item__c.Revision__c}"/>
             
             <br/>
             <apex:inputField value="{!Sample_Request_Item__c.Application__c}"/>
@@ -105,6 +105,7 @@
             <br/>
             <apex:inputField value="{!Sample_Request_Item__c.Delivery_Method__c}"/>
             <apex:inputField value="{!Sample_Request_Item__c.Has_Control_Sample__c}"/>
+            <apex:inputField value="{!Sample_Request_Item__c.Revision__c}"/>
             <apex:inputField value="{!Sample_Request_Item__c.Light_Source__c}"/>
             <br/>
             <apex:inputField value="{!Sample_Request_Item__c.Room_Scene__c}"/>
