@@ -123,9 +123,6 @@
                 	<apex:pageBlockSectionItem >
                 <apex:outputLabel value="Sample Details"/>
             	<apex:pageBlockTable value="{!Sample_Request_Item__c}" var="sr">
-                    <apex:column headerValue="Style Color">
-                        <apex:inputField value="{!sr.Style_Color__c}"/>
-                    </apex:column>
                     <apex:column headerValue="Style Description">
                         <apex:inputField style="width:200px" value="{!sr.Style_Description__c}"/>
                     </apex:column>
@@ -135,11 +132,13 @@
                     <apex:column headerValue="Backing Size Tile/Bdlm">
                         <apex:inputField style="width:200px" value="{!sr.Backing_Description__c}"/>
                     </apex:column>
+                    <apex:column headerValue="Style Color">
+                        <apex:inputField value="{!sr.Style_Color__c}"/>
+                    </apex:column>
                     
             	</apex:pageBlockTable>
         		</apex:pageBlockSectionItem>
             <apex:inputField value="{!Sample_Request_Item__c.Total_Mockup_Size__c}"/>
-            <apex:inputField value="{!Sample_Request_Item__c.Stock_Number__c}"/>
             
             <br/>
             <apex:inputField style="width:400px" value="{!Sample_Request_Item__c.Revision_Notes__c}"/>
@@ -151,9 +150,6 @@
             <apex:pageBlockSectionItem >
                 <apex:outputLabel value="Sample Details"/>
             	<apex:pageBlockTable value="{!Sample_Request_Item__c}" var="sr">
-                    <apex:column headerValue="Style Color">
-                        <apex:inputField value="{!sr.Style_Color__c}"/>
-                    </apex:column>
                     <apex:column headerValue="Style Description">
                         <apex:inputField style="width:200px" value="{!sr.Style_Description__c}"/>
                     </apex:column>
@@ -162,6 +158,9 @@
                     </apex:column>
                     <apex:column headerValue="Backing Size Tile/Bdlm">
                         <apex:inputField style="width:200px" value="{!sr.Backing_Description__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="Style Color">
+                        <apex:inputField value="{!sr.Style_Color__c}"/>
                     </apex:column>
             	</apex:pageBlockTable>
         		</apex:pageBlockSectionItem>
