@@ -5,6 +5,7 @@
         <members>SampleRequestItemCommentCustomController</members>
         <members>SampleRequestItemCustomController</members>
         <members>testForcePull</members>
+        <members>UtilityBentley</members>
         <name>ApexClass</name>
     </types>
     <types>

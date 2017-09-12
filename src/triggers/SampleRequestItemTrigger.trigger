@@ -51,23 +51,46 @@ if(Trigger.isBefore){
 		string Url = System.URL.getSalesforceBaseUrl().toExternalForm()+'/'+Sri.id;
 		//if either Custom Sample or Custom Simulation
 		
-		if((sri.Sample_Request_Item_Type__c == 'Custom Sample' || sri.Sample_Request_Item_Type__c=='Custom Simulation')&& trigger.isInsert){
+		if(sri.Sample_Request_Item_Type__c == 'Custom Sample' && trigger.isInsert){
+					system.debug('We are now in Custom Samples');
+					List <String> Tos = new List <String>();
+					List <String> CCs = new List <String>();
+					Tos.add(DirectOwner.Email);
+					String Subject = 'Your Custom Sample/Sim has been automatically approved';
+					String Body = 'The details are as followed for your report' + sri.Sample_Request_Item_Type__c;
+                    UtilityBentley.SendEmail(Subject,Tos, null, Body);
+                    
+                    
+                    /*PageReference pdf = Page.getContentAsPDF();
+                    pdf.getParameters().put('id', sri.id);
+                    pdf.setRedirect(true);
+                    
+                    Blob b = pdf.getContent();
+                    Messaging.EmailFileAttachment efa = new Messaging.EmailFileAttachment();
+                    efa.setFileName('attachment.pdf');
+                    efa.setBody(b);
+                    system.debug('We are now printing the pdf that comes out');                    
+                    system.debug(b);
+                    automaticApproval.setFileAttachments(new Messaging.EmailFileAttachment[] {efa});
+                    
+                    
+                    
+                    //end of the pdf file setup
+                    */
+                  
 					
-					Messaging.SingleEmailMessage automaticApproval = new Messaging.SingleEmailMessage();
-              		List <String> automaticApprovalTo = new List <String>();
-              		
-                    automaticApprovalTo.add(DirectOwner.Email);
-                    //customs@bentleymills.com
-                    automaticApprovalTo.add('clearcupwater@gmail.com');
-                    automaticApproval.setToAddresses(automaticApprovalTo);
-                    automaticApproval.setReplyTo('Do_Not_Reply@bentleymills.com');
-                    automaticApproval.setSenderDisplayName('Bentley Custom Samples Tracking - Do Not Reply');
-                    automaticApproval.setSubject('Your Custom Sample/Sim has been automatically approved');
-                    automaticApproval.setHtmlBody(' The following is a link to your request' + Url);
-                    quickApprovals.add(automaticApproval);
-                    Messaging.sendEmail(quickApprovals);
+		}
+		
+		if(sri.Sample_Request_Item_Type__c=='Custom Simulation'&& trigger.isInsert){
+			
+			
+			
+			
+			
+			
 			
 		}
+		
 		
 		//checks to see if the item is approved. If approved, skpps the rest of the code
 		boolean turnOn; 
@@ -185,7 +208,9 @@ if(Trigger.isBefore){
 			}
 		}
 		}
-    }	
+    }
+    
+    	
 	 
                                   
 

@@ -1,33 +1,33 @@
 <apex:page standardController="Sample_Request__c" title="Sample Request Edit"
            tabStyle="Sample_Request__c" extensions="SampleRequestCustomController" action="{!runOnPageLoad}">
-			<apex:pageMessages />
+            <apex:pageMessages />
     <apex:form >
         <apex:sectionHeader title="Sample Request" subtitle="{!if(Sample_Request__c.id == null, 'New Sample Request', Sample_Request__c.name)}"/>
         <apex:pageBlock title="Sample Request" >
-				<apex:pageBlockButtons >
+                <apex:pageBlockButtons >
                     <apex:commandButton value="Save" action="{!save}"/>
                 </apex:pageBlockButtons>
             
             <apex:pageBlockSection title="Main Data" columns="1" id="maindata">
                 <apex:inputField value="{!Sample_Request__c.Opportunity_Name__c}"/>
-                <apex:outputField value="{!Sample_Request__c.Opportunity_Amount__c}" label = "Opportunity Budget"/>
+                <apex:outputField value="{!Sample_Request__c.Opportunity_Amount__c}" label="Opportunity Budget"/>
                 <apex:outputField value="{!Sample_Request__c.Stage__c}"/>
                 <apex:inputField value="{!Sample_Request__c.Owner__c}"/>
             
             </apex:pageBlockSection>
              <apex:pageBlockSection title="Requester Info" columns="2" id="RequestingAccountInfo">
-         		<apex:pageBlockSectionItem >
+                <apex:pageBlockSectionItem >
                    <apex:outputText value="Requestin g Account *" />
                    <apex:inputField value="{!Sample_Request__c.Account__c}">
                        <apex:actionSupport action="{!getOpportunityDataChangeAccount}" reRender="RequestingAccountInfo" event="onchange"/>
                    </apex:inputField>    
-              	</apex:pageBlockSectionItem>
-              	<apex:pageBlockSectionItem >
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
                    <apex:outputText value="Requesting Contact *" />
                    <apex:inputField value="{!Sample_Request__c.Primary_Contact__c}">
                        <apex:actionSupport action="{!getContactDataChangeContact}" reRender="RequestingAccountInfo" event="onchange"/>
                    </apex:inputField>    
-              	</apex:pageBlockSectionItem>
+                </apex:pageBlockSectionItem>
                <apex:inputField value="{!Sample_Request__c.Shipping_Street__c}" label="Shipping Street *"/>
                <apex:inputField value="{!Sample_Request__c.Primary_Contact_First_Name__c}" label="First Name *" rendered="{!if(Sample_Request__c.Primary_Contact__c == null, true, false)}"/>
                <apex:outputText value="{!Sample_Request__c.Primary_Contact_First_Name__c}" label="First Name *" rendered="{!if(Sample_Request__c.Primary_Contact__c == null, false, true)}"/>
@@ -36,21 +36,21 @@
                <apex:outputText value="{!Sample_Request__c.Primary_Contact_Last_Name__c}" label="Last Name *" rendered="{!if(Sample_Request__c.Primary_Contact__c == null, false, true)}"/>
                <apex:inputField value="{!Sample_Request__c.Shipping_State_Province__c}" label="Shipping State *"/>
                <apex:inputField value="{!Sample_Request__c.Primary_Contact_Phone_Number__c}" label="Phone Number *"/>
-           	   <apex:inputField value="{!Sample_Request__c.Shipping_Zip_Postal_Code__c}" label="Shipping Zip Code *"/>
-           	   <apex:inputField value="{!Sample_Request__c.Primary_Contact_Email__c}" label="Email *"/>
-           	   <apex:inputField value="{!Sample_Request__c.Shipping_Country__c}" label="Shipping Country *"/>
+               <apex:inputField value="{!Sample_Request__c.Shipping_Zip_Postal_Code__c}" label="Shipping Zip Code *"/>
+               <apex:inputField value="{!Sample_Request__c.Primary_Contact_Email__c}" label="Email *"/>
+               <apex:inputField value="{!Sample_Request__c.Shipping_Country__c}" label="Shipping Country *"/>
 
-           		</apex:pageBlockSection>
-            	<br/>
+                </apex:pageBlockSection>
+                <br/>
         </apex:pageBlock>    
         
         <apex:pageBlock title="Sample Request Items" rendered="{!if(Sample_Request__c.id == null, false, true)}">
                 <apex:pageBlockButtons >
                     <apex:commandButton action="{!newSampleItem}" value="New"/>
                 </apex:pageBlockButtons>
-          		<apex:pageBLockSection title="Sample Items">
-            		<apex:pageBlockSectionItem >
-            	<apex:outputLabel value="Sample Items"/>
+                <apex:pageBLockSection title="Sample Items">
+                    <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Sample Items"/>
                 <apex:pageBlockTable value="{!Sample_Request__c.Sample_Request_Items__r}" var="SamItem">
                     <apex:column headerValue="Action">
                         <apex:outputLink value="/apex/SampleRequestItemPageEdit?id={!SamItem.Id}">Edit</apex:outputLink>
@@ -61,8 +61,8 @@
                     <apex:column value="{!SamItem.LastModifiedDate}"/>
                     <apex:column value="{!SamItem.Needed_By__c}"/>
                 </apex:pageBlockTable>   
-                   	</apex:pageBlockSectionItem>
-				</apex:pageBLockSection>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBLockSection>
          </apex:pageBlock>
     
         
