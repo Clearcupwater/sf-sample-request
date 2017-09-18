@@ -51,35 +51,15 @@ if(Trigger.isBefore){
 		string Url = System.URL.getSalesforceBaseUrl().toExternalForm()+'/'+Sri.id;
 		//if either Custom Sample or Custom Simulation
 		
-		if(sri.Sample_Request_Item_Type__c == 'Custom Sample' && trigger.isInsert){
-					system.debug('We are now in Custom Samples');
+		if(sri.Sample_Request_Item_Type__c == 'Custom Sample' && trigger.isInsert){					
 					List <String> Tos = new List <String>();
 					List <String> CCs = new List <String>();
 					Tos.add(DirectOwner.Email);
 					String Subject = 'Your Custom Sample/Sim has been automatically approved';
-					String Body = 'The details are as followed for your report' + sri.Sample_Request_Item_Type__c;
+					String Body = UtilityBentley.provideSampleRequestHeader(Sri.id);
                     UtilityBentley.SendEmail(Subject,Tos, null, Body);
-                    
-                    
-                    /*PageReference pdf = Page.getContentAsPDF();
-                    pdf.getParameters().put('id', sri.id);
-                    pdf.setRedirect(true);
-                    
-                    Blob b = pdf.getContent();
-                    Messaging.EmailFileAttachment efa = new Messaging.EmailFileAttachment();
-                    efa.setFileName('attachment.pdf');
-                    efa.setBody(b);
-                    system.debug('We are now printing the pdf that comes out');                    
-                    system.debug(b);
-                    automaticApproval.setFileAttachments(new Messaging.EmailFileAttachment[] {efa});
-                    
-                    
-                    
-                    //end of the pdf file setup
-                    */
-                  
-					
-		}
+                    					
+				}
 		
 		if(sri.Sample_Request_Item_Type__c=='Custom Simulation'&& trigger.isInsert){
 			

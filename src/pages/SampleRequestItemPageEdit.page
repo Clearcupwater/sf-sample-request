@@ -248,7 +248,7 @@
    	<apex:form enctype="multipart/form-data">
    		<apex:pageBlock title="Upload Attachment">
    			<apex:pageBlockButtons >
-   				<apex:commandButton value="Save" action="{!upload}"/>
+   				<apex:commandButton value="Upload" action="{!upload}"/>
    				
    			</apex:pageBlockButtons>
    			

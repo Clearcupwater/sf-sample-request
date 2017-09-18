@@ -369,7 +369,7 @@ public class SampleRequestItemCustomController {
     	try {
     		insert attachment;
     	} catch (DMLException e){
-    		ApexPages.addMessage(new ApexPages.message(ApexPages.severity.ERROR,'Error uploading attachment'));
+    		ApexPages.addMessage(new ApexPages.message(ApexPages.severity.ERROR,'Error uploading attachment9122017'));
     		return null;
     	} finally {
     		attachment = new Attachment();
