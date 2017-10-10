@@ -94,13 +94,13 @@ public static String provideLineItems (String SampleRequestId){
 		Sample_Request_Item__c sri = [Select SRI_Name__c,  Sample_Request_Item_Type__c, Style_Description__c,Color_Description__c,Backing_Description__c,Style_Color__c, Total_Mockup_Size__c,Revision_Notes__c,Additional_Comments__c From Sample_Request_Item__c where id =:SampleRequestId];
 		body = 'Sample Request Number: ' + sri.SRI_Name__c +'<br><br>'+
 		'Sample Request Item Type: ' + sri.Sample_Request_Item_Type__c +'<br>'+
-		'Sample Request Item Type: ' + sri.Style_Description__c+'<br>'+
-		'Sample Request Item Type: ' + sri.Color_Description__c +'<br>'+
-		'Sample Request Item Type: ' + sri.Backing_Description__c +'<br>'+
-		'Sample Request Item Type: ' + sri.Style_Color__c +'<br>'+
-		'Sample Request Item Type: ' + sri.Total_Mockup_Size__c +'<br>'+
-		'Sample Request Item Type: ' + sri.Revision_Notes__c +'<br>'+
-		'Sample Request Item Type: ' + sri.Additional_Comments__c +'<br>';
+		'Style Description: ' + sri.Style_Description__c+'<br>'+
+		'Color Description: ' + sri.Color_Description__c +'<br>'+
+		'Backing Description: ' + sri.Backing_Description__c +'<br>'+
+		'Style Color: ' + sri.Style_Color__c +'<br>'+
+		'Total Mockup Size: ' + sri.Total_Mockup_Size__c +'<br>'+
+		'Revision Notes: ' + sri.Revision_Notes__c +'<br>'+
+		'Additional Comments: ' + sri.Additional_Comments__c +'<br>';
 		
 		
 		
