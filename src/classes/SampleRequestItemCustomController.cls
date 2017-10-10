@@ -142,7 +142,7 @@ public class SampleRequestItemCustomController {
 		
            
            // First fetch  all the approvals attached to the Sample Request Item Approval then work on the next approval record...
-		Sample_Request_Item_Approval__c[] currentApprovals = [Select Id, Status__c, Approval_Order__c, User__c From Sample_Request_Item_Approval__c Where Sample_Request_Item__c =:sampleRequestItem.id Order By Approval_Order__c ASC ]; 
+		Sample_Request_Item_Approval__c[] currentApprovals = [Select Id, Sample_Request_Item__c, Status__c, Approval_Order__c, User__c From Sample_Request_Item_Approval__c Where Sample_Request_Item__c =:sampleRequestItem.id Order By Approval_Order__c ASC ]; 
             for(Sample_Request_Item_Approval__c approver: currentApprovals){
                 system.debug(approver.Status__c);
                 If(approver.Status__c == 'Pending'){
@@ -166,7 +166,10 @@ public class SampleRequestItemCustomController {
                     mail.setSenderDisplayName(UserInfo.FirstName + ' ' + UserInfo.LastName);
                     mail.setSubject('The Following Sample Request is Pending Your Approval');
                     String link = URL.getSalesforceBaseUrl().toExternalForm()+'/'+ SampleRequestItem.Id;
-                    mail.setHtmlBody('Please visit the following link to approve the following sample Request. No work begins until the following is approved ' + link);
+                    String Body = UtilityBentley.provideSampleRequestHeader(SampleRequestItem.Id);
+					String Lines = UtilityBentley.provideLineItems(SampleRequestItem.Id);
+                    
+                    mail.setHtmlBody('Please visit the following link to approve the following sample Request. No work begins until the following is approved ' + link + '<br>' + body + lines);
                     mails.add(mail);
                     Messaging.sendEmail(mails);
                     
@@ -274,6 +277,14 @@ public class SampleRequestItemCustomController {
 			{checkResults='You must enter All Shipping Information. Use Shipping account lookup to simplify input';}
 		else if(sampleRequestItem.Shipping_Country__c ==null)
 			{checkResults='You must enter All Shipping Information. Use Shipping account lookup to simplify input';}
+		else if(sampleRequestItem.Primary_Contact_Email__c== null)
+			{checkResults='You must enter a Contact email';}
+		else if(sampleRequestItem.Primary_Contact_First_Name__c== null)
+			{checkResults='You must enter a Contact first name';}
+		else if(sampleRequestItem.Primary_Contact_Last_Name__c== null)
+			{checkResults='You must enter a Contact Last Name';}
+		else if(sampleRequestItem.Primary_Contact_Phone_Number__c== null)
+			{checkResults='You must enter a Primary Contact Phone Number';}	
     	else{
     	 	system.debug(checkResults);
     		checkResults = null;}

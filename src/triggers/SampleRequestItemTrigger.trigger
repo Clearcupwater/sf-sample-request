@@ -54,20 +54,24 @@ if(Trigger.isBefore){
 		if(sri.Sample_Request_Item_Type__c == 'Custom Sample' && trigger.isInsert){					
 					List <String> Tos = new List <String>();
 					List <String> CCs = new List <String>();
-					Tos.add(DirectOwner.Email);
-					String Subject = 'Your Custom Sample/Sim has been automatically approved';
+					CCs.add(DirectOwner.Email);
+					Tos.add('crm@bentleymills.com');
+					String Subject = 'Your Custom Sample has been automatically approved';
 					String Body = UtilityBentley.provideSampleRequestHeader(Sri.id);
-                    UtilityBentley.SendEmail(Subject,Tos, null, Body);
+					String Lines = UtilityBentley.provideLineItems(Sri.id);
+                    UtilityBentley.SendEmail(Subject,Tos, CCs, Body+Lines);
                     					
 				}
 		
 		if(sri.Sample_Request_Item_Type__c=='Custom Simulation'&& trigger.isInsert){
-			
-			
-			
-			
-			
-			
+					List <String> Tos = new List <String>();
+					List <String> CCs = new List <String>();
+					CCs.add(DirectOwner.Email);
+					Tos.add('crm@bentleymills.com');
+					String Subject = 'Your Custom Simulation has been automatically approved';
+					String Body = UtilityBentley.provideSampleRequestHeader(Sri.id);
+					String Lines = UtilityBentley.provideLineItems(Sri.id);
+                    UtilityBentley.SendEmail(Subject,Tos, CCs, Body+Lines);
 			
 		}
 		
@@ -153,12 +157,14 @@ if(Trigger.isBefore){
                     fromEmail.add(userInfo.email);
                     mail.setToAddresses(toEmail);
                     mail.setSubject('The Following Sample Request is Pending Your Approval');
+                    String Body = UtilityBentley.provideSampleRequestHeader(Sri.id);
+					String Lines = UtilityBentley.provideLineItems(Sri.id);
                     
                     
                     
                     
                     
-                    mail.setHtmlBody('Please visit the following link to approve the following sample Request. No work begins until the following is approved '+ Url);
+                    mail.setHtmlBody('Please visit the following link to approve the following sample Request. No work begins until the following is approved '+ Url +  '<br>' + Body + Lines);
                     
                     mails.add(mail);
               //send Email to Owner of Sample Request Letting them know that the record has been submitted
@@ -168,7 +174,7 @@ if(Trigger.isBefore){
                     confirmation.setToAddresses(confirmationTo);
                     confirmation.setReplyTo('Do_Not_Reply@bentleymills.com');
                     confirmation.setSubject('Bentley Custom Samples Tracking - Do Not Reply');
-                    confirmation.setHtmlBody('Existing Inventory Samples must be approved by your RVP. Production Required Samples must be approved by your RVP and confirmed with the Mill. Please visit the following link to view your progress ' + Url);
+                    confirmation.setHtmlBody('Existing Inventory Samples must be approved by your RVP. Production Required Samples must be approved by your RVP and confirmed with the Mill. Please visit the following link to view your progress ' + Url + '<br>' + Body + Lines);
                     mails.add(confirmation);
                     
                     Messaging.sendEmail(mails);

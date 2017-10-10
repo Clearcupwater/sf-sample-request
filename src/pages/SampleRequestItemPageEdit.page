@@ -210,39 +210,6 @@
         	</apex:pageBlockSection>
         
         </apex:pageBlock>
-        
-        
-        <apex:pageBlock title="Comment History" rendered="{!if(Sample_Request_Item__c.id == null, false, true)}">
-        <apex:pageBlockButtons rendered="{if(printerFriendly == false, true, false)}">
-        		<apex:commandButton value="{!if(Sample_Request_Item__c.Stage__c == 'Needing Additional Information','Respond to Request for Information','New Comment')}" action="{!newComment}"/>
-        	</apex:pageBlockButtons>
-        <apex:pageBlockSection >
-            <apex:pageBlockSectionItem >
-                <apex:outputLabel value="List"/>
-			    <apex:pageBlockTable value="{!Sample_Request_Item__c.Sample_Request_Item_Comments__r}" var="sric" columnsWidth="500px,300px, 100px, 100px">
-                	<apex:column headerValue="Comment">
-                        <apex:outputfield value="{!sric.Comment__c}"/>
-                    </apex:column>
-                    <apex:column headerValue="Comment Reason">
-                        <apex:outputfield value="{!sric.Comment_Reason__c}"/>
-                    </apex:column>
-                    <apex:column headerValue="Last Modified Date">
-                    	<apex:outputField value="{!sric.LastModifiedDate}"/>
-                    </apex:column>
-                    <apex:column headerValue="Created Date">
-                    	<apex:outputField value="{!sric.CreatedDate}"/>
-                    </apex:column>
-                </apex:pageBlockTable>
-            </apex:pageBlockSectionItem>
-        	</apex:pageBlockSection>
-        </apex:pageBlock>
-
-        
-        
-        
-        
-        
-
     </apex:form>
     
    	<apex:form enctype="multipart/form-data">

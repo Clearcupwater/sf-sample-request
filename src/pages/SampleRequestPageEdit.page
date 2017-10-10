@@ -17,7 +17,7 @@
             </apex:pageBlockSection>
              <apex:pageBlockSection title="Requester Info" columns="2" id="RequestingAccountInfo">
                 <apex:pageBlockSectionItem >
-                   <apex:outputText value="Requestin g Account *" />
+                   <apex:outputText value="Requesting Account *" />
                    <apex:inputField value="{!Sample_Request__c.Account__c}">
                        <apex:actionSupport action="{!getOpportunityDataChangeAccount}" reRender="RequestingAccountInfo" event="onchange"/>
                    </apex:inputField>    

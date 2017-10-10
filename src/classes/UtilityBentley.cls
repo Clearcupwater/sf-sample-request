@@ -27,10 +27,10 @@ public static void SendEmail(String Subject, List<String> EmailsTo, List<String>
 }
 
 public static String provideSampleRequestHeader(String SampleRequestId){
-	Sample_Request_Item__c Sri = [Select SRI_Name__c, Stage__c, Sample_Request_Item_Type__c, Needed_By__c, Owner_Name__c, CreatedDate, Shipping_Account_Name__c, Shipping_Street__c, Shipping_State_Province__c, Shipping_Country__c, Shipping_Zip_Postal_Code__c,
+	Sample_Request_Item__c Sri = [Select Sample_Request_Name__c, Stage__c, Sample_Request_Item_Type__c, Needed_By__c, Owner_Name__c, CreatedDate, Shipping_Account_Name__c, Shipping_Street__c, Shipping_State_Province__c, Shipping_Country__c, Shipping_Zip_Postal_Code__c,
 	Primary_Contact_First_Name__c, Primary_Contact_Last_Name__c, Primary_Contact_Phone_Number__c, Primary_Contact_Email__c, Application__c From Sample_Request_Item__c where id =:SampleRequestId];
 	
-	String body = 'Name: ' + sri.SRI_Name__c +'<br><br>'+
+	String body = 'Sample Request:' + sri.Sample_Request_Name__c +'<br><br>'+
 	'Stage: ' + sri.Stage__c +'<br>'+
 	'Sample Request Item Type: ' + sri.Sample_Request_Item_Type__c+'<br>'+
 	'Needed By: ' + sri.Needed_By__c +'<br>'+
@@ -44,7 +44,7 @@ public static String provideSampleRequestHeader(String SampleRequestId){
 	'Primary Contact First Name: ' + sri.Primary_Contact_First_Name__c +'<br>'+
 	'Primary Contact Last Name: ' + sri.Primary_Contact_Last_Name__c +'<br>'+
 	'Primary Contact Phone Number: ' + sri.Primary_Contact_Phone_Number__c +'<br>'+
-	'Primary Contact Email: ' + sri.Primary_Contact_Email__c +'<br>';
+	'Primary Contact Email: ' + sri.Primary_Contact_Email__c +'<br><br>';
 
 
 	return body;
@@ -59,13 +59,13 @@ public static String provideLineItems (String SampleRequestId){
 		Sample_Request_Item__c sri = [Select SRI_Name__c,  Sample_Request_Item_Type__c, Style_Description__c, Color_Description__c, Revision__c, Application__c, Has_Control_Sample__c, Light_Source__c, Revision_Notes__c, Additional_Comments__c From Sample_Request_Item__c where id =:SampleRequestId];
 		
 		body = 'Sample Request Number: ' + sri.SRI_Name__c +'<br><br>'+
-		'Style and Description: ' + sri.Style_Description__c +'<br>'+
+		'Style Description: ' + sri.Style_Description__c +'<br>'+
 		'Color Description: ' + sri.Color_Description__c +'<br>'+
-		'Revision: ' + sri.Revision__c +'<br>'+
-		'Applicaiton: ' + sri.Application__c +'<br>'+
+		'Revision Number: ' + sri.Revision__c +'<br>'+
+		'Application: ' + sri.Application__c +'<br>'+
 		'Has Control Sample: ' + sri.Has_Control_Sample__c +'<br>'+
 		'Light Source: ' + sri.Light_Source__c +'<br>'+
-		'Revision Notes: ' + sri.Revision_Notes__c +'<br>'+
+		'Revision Info: ' + sri.Revision_Notes__c +'<br>'+
 		'Additional Comments: ' + sri.Additional_Comments__c +'<br>';	
 	} 
 	
@@ -79,7 +79,7 @@ public static String provideLineItems (String SampleRequestId){
 		'Color Description: ' + sri.Color_Description__c +'<br>'+
 		'Delivery Method: ' + sri.Delivery_Method__c +'<br>'+
 		'Has Control Sample: ' + sri.Has_Control_Sample__c +'<br>'+
-		'Revision: ' + sri.Revision__c +'<br>'+
+		'Revision Info: ' + sri.Revision__c +'<br>'+
 		'Light Source: ' + sri.Light_Source__c +'<br>'+
 		'Room Scene: ' + sri.Room_Scene__c +'<br>'+
 		'Simulation Needs: ' + sri.Simulation_Needs__c +'<br>'+
