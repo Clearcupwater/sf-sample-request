@@ -20,6 +20,8 @@
             <apex:pageBlockSection columns="1" title="Opportunity Data" rendered="{!Sample_Request_Item__c.id != null}">
             	<apex:outputField value="{!Sample_Request_Item__c.Opportunity_Name__c}"/>
             	<apex:outputField value="{!Sample_Request_Item__c.Opportunity_Amount__c}"/>
+            	<apex:outputField value="{!Sample_Request_Item__c.Budget_Per_SQYD__c}"/>
+            	
             </apex:pageBlockSection>
           	
             <apex:pageBlockSection columns="1" title="Admin Info">
@@ -31,7 +33,6 @@
                 <apex:outputField value="{!Sample_Request_Item__c.Sample_Request__c}" rendered="false"/>
                 <apex:inputField value="{!Sample_Request_Item__c.SR_Name_Link__c}" rendered="{!Sample_Request_Item__c.id != null}"/>
                 <apex:inputField value="{!Sample_Request_Item__c.Needed_By__c}" label="Needed by *" />
-                <apex:inputField value="{!Sample_Request_Item__c.To_Email__c}"/>
                 <apex:inputField value="{!Sample_Request_Item__c.Owner__c}" label="Owner *"/>
                 <apex:outputField Value="{!Sample_Request_Item__c.CreatedDate}"/>
             </apex:pageBlockSection>
@@ -81,7 +82,7 @@
             <br/>
             <apex:inputField value="{!Sample_Request_Item__c.Application__c}"/>
             <br/>
-            <apex:inputField value="{!Sample_Request_Item__c.Has_Control_Sample__c}"/>
+            <apex:inputField value="{!Sample_Request_Item__c.Was_A_Control_Sample_Shipped__c}"/>
             <apex:inputField value="{!Sample_Request_Item__c.Light_Source__c}"/>
             <br/>
             <apex:inputField style="width:400px" value="{!Sample_Request_Item__c.Revision_Notes__c}"/>
@@ -104,7 +105,7 @@
         		</apex:pageBlockSectionItem>
             <br/>
             <apex:inputField value="{!Sample_Request_Item__c.Delivery_Method__c}"/>
-            <apex:inputField value="{!Sample_Request_Item__c.Has_Control_Sample__c}"/>
+            <apex:inputField value="{!Sample_Request_Item__c.Was_A_Control_Sample_Shipped__c}"/>
             <apex:inputField value="{!Sample_Request_Item__c.Revision__c}"/>
             <apex:inputField value="{!Sample_Request_Item__c.Light_Source__c}"/>
             <br/>
@@ -164,7 +165,8 @@
                     </apex:column>
             	</apex:pageBlockTable>
         		</apex:pageBlockSectionItem>
-            
+        		
+            	<apex:inputField value = "{!Sample_Request_Item__c.PDS_Number__c}"/>
             	<apex:inputField value="{!Sample_Request_Item__c.Total_Mockup_Size__c}"/>
             	 <br/>
             		<apex:inputField style="width:400px" value="{!Sample_Request_Item__c.Revision_Notes__c}"/>

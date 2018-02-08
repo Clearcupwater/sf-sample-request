@@ -28,14 +28,15 @@ public static void SendEmail(String Subject, List<String> EmailsTo, List<String>
 
 public static String provideSampleRequestHeader(String SampleRequestId){
 	Sample_Request_Item__c Sri = [Select Sample_Request_Name__c, Stage__c, Sample_Request_Item_Type__c, Needed_By__c, Owner_Name__c, CreatedDate, Shipping_Account_Name__c, Shipping_Street__c, Shipping_State_Province__c, Shipping_Country__c, Shipping_Zip_Postal_Code__c,
-	Primary_Contact_First_Name__c, Primary_Contact_Last_Name__c, Primary_Contact_Phone_Number__c, Primary_Contact_Email__c, Application__c From Sample_Request_Item__c where id =:SampleRequestId];
+	Primary_Contact_First_Name__c, Primary_Contact_Last_Name__c, Primary_Contact_Phone_Number__c, Primary_Contact_Email__c, Application__c, Budget_Per_SQYD__c  From Sample_Request_Item__c where id =:SampleRequestId];
 	
 	String body = 'Sample Request:' + sri.Sample_Request_Name__c +'<br><br>'+
 	'Stage: ' + sri.Stage__c +'<br>'+
 	'Sample Request Item Type: ' + sri.Sample_Request_Item_Type__c+'<br>'+
 	'Needed By: ' + sri.Needed_By__c +'<br>'+
 	'Owner: ' + sri.Owner_Name__c +'<br>'+
-	'CreatedDate: ' + sri.CreatedDate +'<br><br>'+
+	'CreatedDate: ' + sri.CreatedDate +'<br>'+
+	'Budget Per SQYD: ' + sri.Budget_Per_SQYD__c + '<br><br>' +
 	'Shipping Account: ' + sri.Shipping_Account_Name__c +'<br>'+
 	'Shipping Street: ' + sri.Shipping_Street__c +'<br>'+
 	'Shipping State_Province: ' + sri.Shipping_State_Province__c +'<br>'+
@@ -56,14 +57,14 @@ public static String provideLineItems (String SampleRequestId){
 	String body;
 	
 	if(checkType.Sample_Request_Item_Type__c =='Custom Sample' ){
-		Sample_Request_Item__c sri = [Select SRI_Name__c,  Sample_Request_Item_Type__c, Style_Description__c, Color_Description__c, Revision__c, Application__c, Has_Control_Sample__c, Light_Source__c, Revision_Notes__c, Additional_Comments__c From Sample_Request_Item__c where id =:SampleRequestId];
+		Sample_Request_Item__c sri = [Select SRI_Name__c,  Sample_Request_Item_Type__c, Style_Description__c, Color_Description__c, Revision__c, Application__c,  Light_Source__c, Revision_Notes__c, Additional_Comments__c, Was_A_Control_Sample_Shipped__c From Sample_Request_Item__c where id =:SampleRequestId];
 		
 		body = 'Sample Request Number: ' + sri.SRI_Name__c +'<br><br>'+
 		'Style Description: ' + sri.Style_Description__c +'<br>'+
 		'Color Description: ' + sri.Color_Description__c +'<br>'+
 		'Revision Number: ' + sri.Revision__c +'<br>'+
 		'Application: ' + sri.Application__c +'<br>'+
-		'Has Control Sample: ' + sri.Has_Control_Sample__c +'<br>'+
+		'Was a Control Sample Shipped: ' + sri.Was_A_Control_Sample_Shipped__c +'<br>'+
 		'Light Source: ' + sri.Light_Source__c +'<br>'+
 		'Revision Info: ' + sri.Revision_Notes__c +'<br>'+
 		'Additional Comments: ' + sri.Additional_Comments__c +'<br>';	
@@ -71,14 +72,14 @@ public static String provideLineItems (String SampleRequestId){
 	
 	
 	if(checkType.Sample_Request_Item_Type__c =='Custom Simulation' ){
-		Sample_Request_Item__c sri = [Select SRI_Name__c,  Sample_Request_Item_Type__c, Style_Description__c,Color_Description__c, Delivery_Method__c,Has_Control_Sample__c,Revision__c, Light_Source__c,Room_Scene__c,Simulation_Needs__c,Installation_Method__c,Field__c, Accent__c, Revision_Notes__c,Additional_Comments__c From Sample_Request_Item__c where id =:SampleRequestId];
+		Sample_Request_Item__c sri = [Select SRI_Name__c,  Sample_Request_Item_Type__c, Style_Description__c,Color_Description__c, Delivery_Method__c, Revision__c, Light_Source__c,Room_Scene__c,Simulation_Needs__c,Installation_Method__c,Field__c, Accent__c, Revision_Notes__c,Additional_Comments__c, Was_A_Control_Sample_Shipped__c From Sample_Request_Item__c where id =:SampleRequestId];
 		
 		body = 'Sample Request Number: ' + sri.SRI_Name__c +'<br><br>'+
 		'Sample Request Item Type: ' + sri.Sample_Request_Item_Type__c +'<br>'+
 		'Style Description: ' + sri.Style_Description__c +'<br>'+
 		'Color Description: ' + sri.Color_Description__c +'<br>'+
 		'Delivery Method: ' + sri.Delivery_Method__c +'<br>'+
-		'Has Control Sample: ' + sri.Has_Control_Sample__c +'<br>'+
+		'Was a Control Sample Shipped: ' + sri.Was_A_Control_Sample_Shipped__c +'<br>'+
 		'Revision Info: ' + sri.Revision__c +'<br>'+
 		'Light Source: ' + sri.Light_Source__c +'<br>'+
 		'Room Scene: ' + sri.Room_Scene__c +'<br>'+
@@ -107,12 +108,13 @@ public static String provideLineItems (String SampleRequestId){
 	} 
 	
 	if(checkType.Sample_Request_Item_Type__c =='Custom/Custom Color PDS Production Trial' ){
-		Sample_Request_Item__c sri = [Select SRI_Name__c, Sample_Request_Item_Type__c, Style_Description__c, Color_Description__c, Style_Color__c, Total_Mockup_Size__c, Revision_Notes__c, Additional_Comments__c  From Sample_Request_Item__c where id =:SampleRequestId];
+		Sample_Request_Item__c sri = [Select SRI_Name__c, Sample_Request_Item_Type__c, Style_Description__c, Color_Description__c, Style_Color__c, Total_Mockup_Size__c, Revision_Notes__c, Additional_Comments__c, PDS_Number__c   From Sample_Request_Item__c where id =:SampleRequestId];
 		 body = 'Sample Request Number: ' + sri.SRI_Name__c +'<br><br>'+
 		'Sample Request Item Type: ' + sri.Sample_Request_Item_Type__c +'<br>'+
 		'Style Description: ' + sri.Style_Description__c +'<br>'+
 		'Color Description: ' + sri.Color_Description__c +'<br>'+
 		'Style Color: ' + sri.Style_Color__c +'<br>'+
+		'PDS Numner: ' + sri.PDS_Number__c +'<br>'+
 		'Total Mockup Size: ' + sri.Total_Mockup_Size__c +'<br>'+
 		'Revision Notes: ' + sri.Revision_Notes__c +'<br>'+
 		'Additional Comments: ' + sri.Additional_Comments__c +'<br>';
